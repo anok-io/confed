@@ -1,19 +1,24 @@
-# confed
+# CONFED Ⓐ
 
-A [Sails v1](https://sailsjs.com) application aimed to provide an organising platform for groups, based on anarcho syndicalist principles of organising.
+A [Sails v1](https://sailsjs.com) application aimed to provide an organising platform for groups, based on anarcho syndicalist principles of organising. This Confed app uses [Docker](https://www.docker.com)
 
-Member <-> Group <-> Local <-> Regional <-> Federation <-> Confederation
+This is an exploration of building an anarchist decision making system based on a model of federations affiliated with the [ASF-IWA](https://www.asf-iwa.org.au), the Australian section of the [International Workers Association](https://www.iwa-ait.org)
 
-This Confed app uses [Docker](https://www.docker.com)
+Members will be able to form groups by inviting other members, or starting their own 'Initiative' in search of other members. Members can only be connected to one group.
+
+**Groups** are affiates of **Locals**
+
+**Locals** are affiates of **Regionals**
+
+**Regionals** are affiates of **Federations**
+
+**Federations** are affiates of **Confederations**
+
+Discussions around the features and planning is available via Anoki.io Discourse linked below.
 
 ### Links
-
-+ [Sails framework documentation](https://sailsjs.com/get-started)
-+ [Version notes / upgrading](https://sailsjs.com/documentation/upgrading)
-+ [Deployment tips](https://sailsjs.com/documentation/concepts/deployment)
-+ [Community support options](https://sailsjs.com/support)
-+ [Professional / enterprise options](https://sailsjs.com/enterprise)
-
++ [Anok.io](https://anok.io)
++ [Anok.io Discourse](https://discourse.anok.io)
 
 ### Version info
 
