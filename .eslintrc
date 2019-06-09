@@ -5,7 +5,7 @@
   // A set of basic code conventions designed to encourage quality and consistency
   // across your Sails app's code base.  These rules are checked against
   // automatically any time you run `npm test`.
-  // 
+  //
   // > An additional eslintrc override file is included in the `assets/` folder
   // > right out of the box.  This is specifically to allow for variations in acceptable
   // > global variables between front-end JavaScript code designed to run in the browser
@@ -39,8 +39,9 @@
     "_": true,
 
     // Models:
-    "User": true
-    
+    "User": true,
+    "Group": true
+
     // …and any others.
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   },

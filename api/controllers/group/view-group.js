@@ -17,9 +17,9 @@ module.exports = {
 
 
   fn: async function () {
-
+    let groups = await Group.find();
     // Respond with view.
-    return {};
+    return {groups};
 
   }
 

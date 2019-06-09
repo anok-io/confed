@@ -1,8 +1,6 @@
 <div id="group" v-cloak>
-
-  <h1>TODO: Implement this page.</h1>
+  <h1>TODO: Implement the Group page.</h1>
   <p>(See also <em>assets/styles/pages/group/group.less</em>, <em>assets/js/pages/group/group.page.js</em>, and <em>api/controllers/group/view-group.js</em>.)</p>
-
   <p> Default page for a users group functions.</p>
   <ul>
     <li>Users can create a group if they are not already a member of a group</li>
@@ -12,7 +10,15 @@
     <li>Users can submit a new agenda item</li>
     <li>Offers from other groups to federate</li>
   </ul>
-
-
+<div>
+<h2>My Group</h2>
+TODO: Information on users group.
+</div>
+<div>
+<h2>Groups</h2>
+    <ul>
+      <li v-for="group in groups" @click="clickGroup(group.id)">{{group.name}}</li>
+    </div>
+    </ul>
 </div>
 <%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>
