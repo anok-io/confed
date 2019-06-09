@@ -2,11 +2,11 @@
 
 CONFED is a [Sails v1](https://sailsjs.com) application aimed to provide an organising platform for groups based on anarcho syndicalist principles of organising.
 
-[**Bootstrap 4**](http://getbootstrap.com/docs/4.0/getting-started/introduction/) - Front-end component library
+*   [**Bootstrap 4**](http://getbootstrap.com/docs/4.0/getting-started/introduction/) - Front-end component library
 *   [**Font Awesome 4**](http://fontawesome.io/icons/) - Icons
 *   [**Vue.js**](https://vuejs.org/) - Front-end framework
-*   [**parasails.js**](https://npmjs.com/package/parasails) - Thin layer of bundled conventions for using Vue.js with Sails.js, and dynamically-generated SDK for handling AJAX and/or WebSocket requests from the front-end to the actions in your Sails app. (More info on usage below.)
-*   [Docker](https://www.docker.com) - Docker provides easily repeatable development, build, test, and production environments.
+*   [**parasails.js**](https://npmjs.com/package/parasails) - Thin layer of bundled conventions for using Vue.js with Sails.js, and dynamically-generated SDK for handling AJAX and/or WebSocket requests from the front-end to the actions in the app. 
+*   [**Docker**](https://www.docker.com) - Docker provides easily repeatable development, build, test, and production environments.
 
 The main aim of this software is to allow groups to come to decisions between autonomous groups. We hope that this provides a framework not only of decision making that is equitable but increases the understanding of what anarchist methods of organising entail. It is not a replacement for face to face organising as this codebase is limited and static, whereas in anarchist praxis the structures of organising allow fluid interactions. It is however, hopefully a catalyst for groups to better coordinate between themselves, build systems of accountability, and avoid the [Tyranny of Structurelessness](https://www.jofreeman.com/joreen/tyranny.htm) that can have personality politics and friendship networks control movements.
 
