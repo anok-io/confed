@@ -16,11 +16,17 @@ module.exports = {
   },
 
 
-  fn: async function (req,res) {
+  fn: async function () {
+    // Groups that are returned here should be local groups.
     let allGroups = await Group.find();
-    let usersGroup = await Group.findOne(1).populate('members');
-    // Respond with view.
-    return {allGroups, usersGroup};
+    let usersGroup = await Group.findOne(this.req.me.userGroup);
+    let group = usersGroup.name;
+    // TODO Return Local name
+    // TODO Return Regional name
+    // TODO Return Federation name
+    // TODO Return Confederation name
+    // TODO Respond with view.
+    return {allGroups, group};
 
   }
 };
