@@ -22,7 +22,6 @@ module.exports = {
     emailAddress: {
       type: 'string',
       required: false,
-      unique: true,
       isEmail: true,
       maxLength: 200,
       example: 'group@example.com'
