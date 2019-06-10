@@ -25,7 +25,7 @@ module.exports = {
     // Groups that are returned here should be local groups.
     var allGroups = await Group.find();
     if (!allGroups) {
-      allGroups = [{name: "No groups yet exist"}];
+      allGroups = [{name: 'No groups yet exist'}];
     }
     // TODO Return Local name
     // TODO Return Regional name
