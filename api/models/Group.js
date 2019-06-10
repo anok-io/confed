@@ -19,6 +19,15 @@ module.exports = {
       description: 'The name of the group.'
     },
 
+    emailAddress: {
+      type: 'string',
+      required: false,
+      unique: true,
+      isEmail: true,
+      maxLength: 200,
+      example: 'group@example.com'
+    },
+
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
     //  ╚═╝╩ ╩╚═╝╚═╝═╩╝╚═╝
@@ -27,10 +36,16 @@ module.exports = {
     //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
+    memberOf: {
+      model: 'local',
+    },
+
     members: {
       collection: 'user',
-      via: 'usersGroup'
+      via: 'memberOf'
     }
+
   },
+
 
 };
