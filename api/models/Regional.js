@@ -1,5 +1,5 @@
 /**
- * Group.js
+ * Regional.js
  *
  * @description :: A model definition represents a database table/collection.
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
@@ -15,8 +15,8 @@ module.exports = {
     name: {
       type: 'string',
       required: true,
-      example: 'Our Group Name',
-      description: 'The name of the group.'
+      example: 'Our Regionals Name',
+      description: 'The name of the Regional.'
     },
 
     emailAddress: {
@@ -24,9 +24,8 @@ module.exports = {
       required: false,
       isEmail: true,
       maxLength: 200,
-      example: 'group@example.com'
+      example: 'regional@example.com'
     },
-
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
     //  ╚═╝╩ ╩╚═╝╚═╝═╩╝╚═╝
@@ -36,15 +35,15 @@ module.exports = {
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
     memberOf: {
-      model: 'local',
+      model: 'federation',
     },
 
     members: {
-      collection: 'user',
+      collection: 'local',
       via: 'memberOf'
     }
 
   },
 
-
 };
+

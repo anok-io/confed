@@ -10,14 +10,14 @@
     <li>Users can submit a new agenda item</li>
     <li>Offers from other groups to federate</li>
   </ul>
-<div>
+<div id="group">
 <h2>My Group</h2>
-TODO: Information on users group.
+<p>My group is {{memberOf || 'not yet chosen.'}}
 </div>
-<div>
+<div v-if="allGroups > 0">
 <h2>Groups</h2>
     <ul>
-      <li v-for="group in groups" @click="clickGroup(group.id)">{{group.name}}</li>
+      <li v-for="group in allGroups" @click="clickGroup(group.id)">{{group.name}}</li>
     </div>
     </ul>
 </div>
