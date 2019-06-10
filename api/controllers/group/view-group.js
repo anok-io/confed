@@ -19,8 +19,8 @@ module.exports = {
   fn: async function () {
     // Return users group if it exists, otherwise prompt for creating a group
     var usersGroup = "not yet chosen"; // setting a default for new users
-    if (this.req.me.userGroup) {
-    var usersGroup = await Group.findOne(this.req.me.userGroup); 
+    if (this.req.me.usersGroup) {
+    var usersGroup = await Group.findOne(this.req.me.usersGroup); 
     }
     // Groups that are returned here should be local groups.
     var allGroups = await Group.find();
