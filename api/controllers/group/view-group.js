@@ -17,16 +17,22 @@ module.exports = {
 
 
   fn: async function () {
+    // Return users group if it exists, otherwise prompt for creating a group
+    var usersGroup = "not yet chosen"; // setting a default for new users
+    if (this.req.me.userGroup) {
+    var usersGroup = await Group.findOne(this.req.me.userGroup); 
+    }
     // Groups that are returned here should be local groups.
-    let allGroups = await Group.find();
-    let usersGroup = await Group.findOne(this.req.me.userGroup);
-    let group = usersGroup.name;
+    var allGroups = await Group.find();
+    if (!allGroups) {
+      allGroups = [{name: "No groups yet exist"}];
+    }
     // TODO Return Local name
     // TODO Return Regional name
     // TODO Return Federation name
     // TODO Return Confederation name
     // TODO Respond with view.
-    return {allGroups, group};
+    return {allGroups, usersGroup};
 
   }
 };
