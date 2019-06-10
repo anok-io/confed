@@ -29,7 +29,7 @@ module.exports = {
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
     members: {
       collection: 'user',
-      via: 'member'
+      via: 'userGroup'
     }
   },
 

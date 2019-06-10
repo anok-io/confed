@@ -16,12 +16,11 @@ module.exports = {
   },
 
 
-  fn: async function () {
-    let groups = await Group.find();
+  fn: async function (req,res) {
+    let allGroups = await Group.find();
+    let usersGroup = await Group.findOne(1).populate('members');
     // Respond with view.
-    return {groups};
+    return {allGroups, usersGroup};
 
   }
-
-
 };

@@ -164,7 +164,7 @@ without necessarily having a billing card.`
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
     // n/a
-    member: {
+    userGroup: {
       model: 'group',
     }
   },
