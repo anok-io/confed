@@ -1,30 +1,44 @@
-<div id="group" class="container" v-cloak>
-  <h1>TODO: Implement the Group page.</h1>
-  <p>(See also <em>assets/styles/pages/group/group.less</em>, <em>assets/js/pages/group/group.page.js</em>, and <em>api/controllers/group/view-group.js</em>.)</p>
-  <p> Default page for a users group functions.</p>
-  <ul>
-    <li>Users can create a group if they are not already a member of a group</li>
-    <li>Users can apply to join a group</li>
-    <li>Users can see and accept applications to a group (all members of the group must have accepted the join group request for the new member to join)</li>
-    <li>Users can see available agenda items for the group</li>
-    <li>Users can submit a new agenda item</li>
-    <li>Offers from other groups to federate</li>
-  </ul>
-  <div id="group">
-  <h2>My Group</h2>
-    <p>My group is {{group.name || 'not yet chosen.'}}</p>
-  <h3>Members</h3>
+<div id="group" v-cloak>
+  <div class="container">
+    <div class="page-header text-center">
+      <h1>{{group.name || 'Groups'}}</h1>
+      <hr/>
+      <h2>Organise your group</h2>
+          <div class="header-buttons">
+            <a class="btn btn-sm btn-outline-info create-group-button" href="/group/create">Create Group</a>
+            <a class="btn btn-sm btn-outline-info agenda-item-button" href="/agenda-item/create">Create Agenda Item</a>
+          </div>
+    </div>
+    <p />
+    <%#
+    <p> Default page for a users group functions.</p>
     <ul>
-      <li v-for="comrade in comrades" @click="clickComrade(comrade.id)">{{comrade.fullName}}</li>
-    </ul>
-  </div>
+      <li>Users can create a group if they are not already a member of a group</li>
+      <li>Users can apply to join a group</li>
+      <li>Users can see and accept applications to a group (all members of the group must have accepted the join group request for the new member to join)</li>
+      <li>Users can see available agenda items for the group</li>
+      <li>Users can submit a new agenda item</li>
+      <li>Offers from other groups to federate</li>
+    </ul> %>
+    <div class="listings" v-if="comrades.length > 0">
+      <h3>Members</h3>
+      <div class="card" :key="'comrade'+comrade.id"  v-for="comrade in comrades">{{comrade.fullName}}</li>
+        <div class="card-options dropdown">
+          <span class="options-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fa fa-ellipsis-v"></span></span>
+          <div class="dropdown-menu dropdown-menu-right">
+            <span class="dropdown-item">View</span>
+            <span class="dropdown-item">Message Comrade</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <div v-if="allGroups">
-  <h2>Groups</h2>
-      <ul>
-        <li v-for="group in allGroups" @click="clickGroup(group.id)">{{group.name}}</li>
-      </ul>
+    <div v-if="allGroups">
+    <h2>Groups</h2>
+        <ul>
+          <li v-for="group in allGroups" @click="clickGroup(group.id)">{{group.name}}</li>
+        </ul>
+    </div>
   </div>
-
 </div>
 <%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>

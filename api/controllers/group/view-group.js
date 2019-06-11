@@ -27,7 +27,10 @@ module.exports = {
       comrades = await User.find({
         or: [
           { memberOf: group.id}
-        ]
+        ],
+        and: [{
+          id: { '!=': this.req.me.id }
+        }]
       });
     }
     // TODO: Groups that are returned here should be other groups in the same local.
