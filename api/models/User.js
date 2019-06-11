@@ -166,7 +166,9 @@ without necessarily having a billing card.`
     // n/a
     memberOf: {
       model: 'group',
-    }
+    },
+
+    friends: { collection: 'User' }
 
   },
 

@@ -21,6 +21,12 @@ parasails.registerPage('group', {
   //  ║║║║ ║ ║╣ ╠╦╝╠═╣║   ║ ║║ ║║║║╚═╗
   //  ╩╝╚╝ ╩ ╚═╝╩╚═╩ ╩╚═╝ ╩ ╩╚═╝╝╚╝╚═╝
   methods: {
-    //…
+
+    clickGroup: async function (groupId) {
+      console.log(`Destroying # ${groupId}`);
+      await Cloud.destroyMyGroup.with({id: groupId});
+      _.remove(this.allGroups, {id:groupId});
+      this.$forceUpdate();
+    }
   }
 });

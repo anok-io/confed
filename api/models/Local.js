@@ -15,6 +15,7 @@ module.exports = {
     name: {
       type: 'string',
       required: true,
+      unique: true,
       example: 'Our Local Name',
       description: 'The name of the Local.'
     },

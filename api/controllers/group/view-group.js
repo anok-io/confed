@@ -22,7 +22,7 @@ module.exports = {
     if (this.req.me.memberOf) {
       memberOf = await Group.findOne(this.req.me.memberOf);
     }
-    // Groups that are returned here should be other groups in the same local.
+    // TODO: Groups that are returned here should be other groups in the same local.
     var allGroups = await Group.find();
     if (!allGroups) {
       allGroups = [{name: 'No groups yet exist'}];

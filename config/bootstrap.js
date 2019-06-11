@@ -15,7 +15,7 @@ module.exports.bootstrap = async function() {
   var path = require('path');
 
   // This bootstrap version indicates what version of fake data we're dealing with here.
-  var HARD_CODED_DATA_VERSION = 0;
+  var HARD_CODED_DATA_VERSION = 2;
 
   // This path indicates where to store/look for the JSON file that tracks the "last run bootstrap info"
   // locally on this development computer (if we happen to be on a development computer).
@@ -59,8 +59,85 @@ module.exports.bootstrap = async function() {
   }//∞
 
   // By convention, this is a good place to set up fake data during development.
-  await User.createEach([
-    { emailAddress: 'admin@example.com', fullName: 'Ryan Dahl', isSuperAdmin: true, password: await sails.helpers.passwords.hashPassword('abc123') },
+  var anarchoSyn = await User.create({
+    emailAddress: 'admin@example.com',
+    fullName: 'Anarcho Syn',
+    isSuperAdmin: true,
+    password: await sails.helpers.passwords.hashPassword('abc123')
+  }).fetch();
+
+  var testUser = await User.create({
+    emailAddress: 'testuser@example.com',
+    fullName: 'Test User',
+    password: await sails.helpers.passwords.hashPassword('abc123')
+  }).fetch();
+
+  // TODO: Friends system
+  // Add some initial friends in the system
+  // addCollection(owner of the association, association name, members being added)
+  // await User.addToCollection(testUser.id, 'friends', anarchoSyn.id);
+  // await User.addToCollection(anarchoSyn.id, 'friends', testUser.id);
+
+  // Setup ASF-IWA
+  // create groups ASF NWT and ASF MNE and add our base users to them
+
+  var asfNWT = await Group.create({
+    name: 'ASF-NWT',
+    emailAddress: 'info@asf-iwa.org.au',
+  }).fetch();
+  await Group.addToCollection(asfNWT.id, 'members', anarchoSyn.id);
+
+  var asfMNE = await Group.create({
+    name: 'ASF Melbourne North East',
+    emailAddress: 'info@asf-iwa.org.au',
+  }).fetch();
+  await Group.addToCollection(asfMNE.id, 'members', testUser.id);
+
+  // Add locals and add our groups to it
+  var asfNwtLocal = await Local.create({
+    name: 'ASF North West Tasmania Local',
+    emailAddress: 'info@asf-iwa.org.au',
+  }).fetch();
+  await Local.addToCollection(asfNwtLocal.id, 'members', asfNWT.id);
+
+  var asfMelbourne = await Local.create({
+    name: 'ASF Melbourne',
+    emailAddress: 'info@asf-iwa.org.au',
+  }).fetch();
+  await Local.addToCollection(asfMelbourne.id, 'members', asfMNE.id);
+  // add regionals and add our locals to it
+  var asfTasmania = await Regional.create({
+    name: 'ASF Tasmania',
+    emailAddress: 'info@asf-iwa.org.au',
+  }).fetch();
+  await Local.addToCollection(asfTasmania.id, 'members', asfNwtLocal.id);
+
+  var asfVictoria = await Regional.create({
+    name: 'ASF Victoria',
+    emailAddress: 'info@asf-iwa.org.au',
+  }).fetch();
+  await Local.addToCollection(asfVictoria.id, 'members', asfMelbourne.id);
+
+  // add federation and add our regionals to it
+  var asfIwa = await Federation.create({
+    name: 'ASF-IWA',
+    emailAddress: 'info@asf-iwa.org.au',
+  }).fetch();
+  await Local.addToCollection(asfIwa.id, 'members', [asfVictoria.id, asfTasmania.id]);
+
+  // add confederation and add our federation to it.
+  var iwaAIT = await Confederation.create({
+    name: 'IWA-AIT',
+    emailAddress: 'info@asf-iwa.org.au',
+  }).fetch();
+  await Local.addToCollection(iwaAIT.id, 'members', asfIwa.id);
+
+  // something to be used to test adding Locals, regionals etc
+  // and checking isn't listed elsewhere until then
+  await Group.createEach([
+    { name: 'ASF Perth', emailAddress: 'info@asf-iwa.org.au', members: [] },
+    { name: 'ASF Brisbane', emailAddress: 'info@asf-iwa.org.au', members: [] },
+    { name: 'ASF Hobart', emailAddress: 'info@asf-iwa.org.au', members: [] },
   ]);
 
   // Save new bootstrap version

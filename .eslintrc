@@ -40,7 +40,11 @@
 
     // Models:
     "User": true,
-    "Group": true
+    "Group": true,
+    "Local": true,
+    "Regional": true,
+    "Federation": true,
+    "Confederation": true
 
     // …and any others.
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
