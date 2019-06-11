@@ -15,7 +15,7 @@ module.exports.bootstrap = async function() {
   var path = require('path');
 
   // This bootstrap version indicates what version of fake data we're dealing with here.
-  var HARD_CODED_DATA_VERSION = 2;
+  var HARD_CODED_DATA_VERSION = 3;
 
   // This path indicates where to store/look for the JSON file that tracks the "last run bootstrap info"
   // locally on this development computer (if we happen to be on a development computer).
@@ -66,6 +66,12 @@ module.exports.bootstrap = async function() {
     password: await sails.helpers.passwords.hashPassword('abc123')
   }).fetch();
 
+  var rudolphRocker = await User.create({
+    emailAddress: 'rocker@example.com',
+    fullName: 'Rudolph Rocker',
+    password: await sails.helpers.passwords.hashPassword('abc123'),
+  }).fetch();
+
   var testUser = await User.create({
     emailAddress: 'testuser@example.com',
     fullName: 'Test User',
@@ -86,6 +92,7 @@ module.exports.bootstrap = async function() {
     emailAddress: 'info@asf-iwa.org.au',
   }).fetch();
   await Group.addToCollection(asfNWT.id, 'members', anarchoSyn.id);
+  await Group.addToCollection(asfNWT.id, 'members', rudolphRocker.id);
 
   var asfMNE = await Group.create({
     name: 'ASF Melbourne North East',

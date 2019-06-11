@@ -12,13 +12,19 @@
   </ul>
   <div id="group">
   <h2>My Group</h2>
-  <p>My group is {{memberOf.name || 'not yet chosen.'}}
+    <p>My group is {{group.name || 'not yet chosen.'}}</p>
+  <h3>Members</h3>
+    <ul>
+      <li v-for="comrade in comrades" @click="clickComrade(comrade.id)">{{comrade.fullName}}</li>
+    </ul>
   </div>
+
   <div v-if="allGroups">
   <h2>Groups</h2>
       <ul>
         <li v-for="group in allGroups" @click="clickGroup(group.id)">{{group.name}}</li>
       </ul>
   </div>
+
 </div>
 <%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>
