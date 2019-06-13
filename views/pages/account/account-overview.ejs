@@ -6,6 +6,7 @@
       <div class="col-sm-6">
         <h4>Personal information</h4>
       </div>
+    <hr/>
       <div class="col-sm-6">
         <span class="float-sm-right">
           <a class="btn btn-sm btn-outline-info account-settings-button" href="/account/profile">Edit profile</a>
@@ -37,6 +38,18 @@
     <div class="row">
       <div class="col-3">Password:</div>
       <div class="col"><strong>••••••••••</strong></div>
+    </div>
+    <hr/>
+    <div class="row">
+      <div class="col-3">Avatar:</div>
+      <div class="col">
+                <form action="user/uploadAvatar" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="_csrf" value="<%= _csrf %>" />
+                    <label>Please upload your avatar:</label>
+                    <input type="file" name="avatar" accept="image/*" class="file-input" />
+                    <input type="submit"/>
+                </form>
+      </div>
     </div>
     <hr/>
     <div class="row mb-3" v-if="isBillingEnabled">
