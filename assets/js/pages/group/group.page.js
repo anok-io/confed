@@ -3,7 +3,10 @@ parasails.registerPage('group', {
   //  ║║║║║ ║ ║╠═╣║    ╚═╗ ║ ╠═╣ ║ ║╣
   //  ╩╝╚╝╩ ╩ ╩╩ ╩╩═╝  ╚═╝ ╩ ╩ ╩ ╩ ╚═╝
   data: {
-    //…
+    selectedGroup: undefined,
+    confirmDeleteGroupModalOpen: false,
+    syncing: false,
+    cloudError: ''
   },
 
   //  ╦  ╦╔═╗╔═╗╔═╗╦ ╦╔═╗╦  ╔═╗
@@ -22,11 +25,27 @@ parasails.registerPage('group', {
   //  ╩╝╚╝ ╩ ╚═╝╩╚═╩ ╩╚═╝ ╩ ╩╚═╝╝╚╝╚═╝
   methods: {
 
-    clickGroup: async function (groupId) {
-      console.log(`Destroying # ${groupId}`);
-      await Cloud.destroyMyGroup.with({id: groupId});
-      _.remove(this.allGroups, {id:groupId});
+    clickDeleteGroup: function (groupID) {
+      this.confirmDeleteGroupModalOpen = true;
+      this.selectedGroup = groupID;
+    },
+
+    closeDeleteGroupModal: function(){
+      this.selectedGroup = undefined;
+      this.confirmDeleteGroupModalOpen = false;
+    },
+
+    handleParsingDeleteGroupForm: function(){
+      return {
+        id: this.selectedGroup
+      };
+    },
+
+    submittedDeleteGroupForm: function() {
+      _.remove(this.allGroups, {id:this.selectedGroup});
       this.$forceUpdate();
+      this.confirmDeleteGroupModalOpen = false;
+      this.selectedGroup = undefined;
     }
   }
 });

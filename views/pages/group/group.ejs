@@ -2,12 +2,13 @@
   <div class="container">
     <div class="page-header text-center">
       <h1>{{group.name || 'Groups'}}</h1>
-      <hr/>
+      <hr />
       <h2>Organise your group</h2>
-          <div class="header-buttons">
-            <a class="btn btn-sm btn-outline-info create-group-button" href="/group/create">Create Group</a>
-            <a class="btn btn-sm btn-outline-info agenda-item-button" href="/agenda-item/create">Create Agenda Item</a>
-          </div>
+      <div class="header-buttons">
+        <a class="btn btn-sm btn-outline-info create-group-button" href="/group/create">Create Group</a>
+        <a class="btn btn-sm btn-outline-info agenda-item-button" href="/agenda-item/create">Create Agenda Item</a>
+        <a class="btn btn-sm btn-outline-info delete-group-button" href="#" @click="clickDeleteGroup(group.id)">Delete my Group</a>
+      </div>
     </div>
     <p />
     <%#
@@ -20,25 +21,68 @@
       <li>Users can submit a new agenda item</li>
       <li>Offers from other groups to federate</li>
     </ul> %>
-    <div class="listings" v-if="comrades.length > 0">
-      <h3>Members</h3>
-      <div class="card" :key="'comrade'+comrade.id"  v-for="comrade in comrades">{{comrade.fullName}}</li>
-        <div class="card-options dropdown">
-          <span class="options-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fa fa-ellipsis-v"></span></span>
-          <div class="dropdown-menu dropdown-menu-right">
-            <span class="dropdown-item">View</span>
-            <span class="dropdown-item">Message Comrade</span>
+
+    <div v-if="comrades.length > 0">
+      <h2>Members of {{group.name}}</h2>
+      <div class="card-deck" v-if="comrades.length > 0">
+
+        <div class="card" :key="'comrade'+comrade.id" v-for="comrade in comrades" style="max-width: 12rem;">
+          <img class="card-img-top" src="https://placeimg.com/120/120/people" :alt="comrade.fullName">
+          <div class="card-body">
+            <h5 class="card-title">{{comrade.fullName}}</h5>
+            <a href="#" class="card-link">View</a>
+            <a href="#" class="card-link">Contact</a>
           </div>
         </div>
       </div>
     </div>
 
     <div v-if="allGroups">
-    <h2>Groups</h2>
-        <ul>
-          <li v-for="group in allGroups" @click="clickGroup(group.id)">{{group.name}}</li>
-        </ul>
+      <h2>Other groups in my Local</h2>
+      <div class="card-deck">
+        <div class="card" :key="'group'+group.id" v-for="group in allGroups">
+          <img class="card-img-top" src="https://placeimg.com/200/200/animals" :alt="group.name">
+          <div class="card-body">
+            <h5 class="card-title">{{group.name}}</h5>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">
+              <a href="#" class="card-link">View</a>
+              <a href="#" class="card-link">Contact</a>
+              <a href="#" class="card-link" @click="clickDeleteGroup(group.id)">Delete</a>
+            </small>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+  <%- /* "Confirm Delete Group" Modal */ %>
+<modal v-if="confirmDeleteGroupModalOpen" v-cloak @close="closeDeleteGroupModal()">
+    <div class="modal-header">
+        <h5 class="modal-title">Delete your group?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span>&times;</span>
+        </button>
+      </div>
+      <ajax-form action="destroyMyGroup"
+                 :syncing.sync="syncing"
+                 :cloud-error.sync="cloudError"
+                 :handle-parsing="handleParsingDeleteGroupForm"
+                 @submitted="submittedDeleteGroupForm()">
+        <div class="modal-body">
+          <p>Are you sure you want to remove your group?</p>
+          <p>This group will be deleted and all associated data lost. Discussions, agenda items, the lot.</p>
+          <p class="text-danger"><small>PLACEHOLDER: An error occured while processing your request. Please check your information and try again, or <a href="/contact">contact support</a> if the error persists.</small></p>
+        </div>
+        <div class="modal-footer">
+          <button data-dismiss="modal" class="btn btn-outline-secondary mr-1">Nevermind</button>
+          <ajax-button type="submit" class="btn btn-danger ml-1">Remove</ajax-button>
+        </div>
+      </ajax-form>
+</modal>
 </div>
+
+
+
+
 <%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>
