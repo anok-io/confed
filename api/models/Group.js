@@ -15,6 +15,7 @@ module.exports = {
     name: {
       type: 'string',
       required: true,
+      unique: true,
       example: 'Our Group Name',
       description: 'The name of the group.'
     },

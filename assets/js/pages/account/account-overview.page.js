@@ -3,6 +3,9 @@ parasails.registerPage('account-overview', {
   //  ║║║║║ ║ ║╠═╣║    ╚═╗ ║ ╠═╣ ║ ║╣
   //  ╩╝╚╝╩ ╩ ╩╩ ╩╩═╝  ╚═╝ ╩ ╩ ╩ ╩ ╚═╝
   data: {
+
+    virtualPageSlug: '',
+
     isBillingEnabled: false,
 
     hasBillingCard: false,
@@ -11,9 +14,19 @@ parasails.registerPage('account-overview', {
     syncingOpenCheckout: false,
     syncingUpdateCard: false,
     syncingRemoveCard: false,
+    syncing: false,
+
+    // upload form management
+    uploadFormData: {
+      avatar: undefined,
+      previewImageSrc: ''
+    },
 
     // Form data
     formData: { /* … */ },
+
+    // validation Errors
+    formErrors: {},
 
     // Server error state for the form
     cloudError: '',
@@ -24,6 +37,10 @@ parasails.registerPage('account-overview', {
     // For the confirmation modal:
     removeCardModalVisible: false,
   },
+
+  virtualPages: true,
+  html5HistoryMode: 'history',
+  virtualPagesRegExp: /^\/account\/?([^\/]+)?/,
 
   //  ╦  ╦╔═╗╔═╗╔═╗╦ ╦╔═╗╦  ╔═╗
   //  ║  ║╠╣ ║╣ ║  ╚╦╝║  ║  ║╣
@@ -117,5 +134,72 @@ parasails.registerPage('account-overview', {
       };
     },
 
+    clickUploadAvatar: function () {
+      this.goto('account/avatar');
+    },
+
+    _clearUploadAvatarModal: function() {
+      // Close Modal
+      this.goto('/account');
+      // Reset form data
+      this.uploadFormData = {
+        avatar: undefined,
+        previewImageSrc: ''
+      };
+      // clear error states
+      this.formErrors = {};
+      this.cloudError = '';
+    },
+
+    closeUploadAvatarModal: function () {
+      this._clearUploadAvatarModal();
+    },
+
+    handleParsingUploadAvatarForm: function () {
+      this.formErrors = {};
+      var argins = this.uploadFormData;
+
+      if (!argins.avatar) {
+        this.formErrors.avatar = true;
+      }
+
+      if (Object.keys(this.formErrors).length > 0) {
+        return;
+      }
+      return _.omit(argins, ['previewImageSrc']);
+    },
+
+    submittedUploadAvatarForm: function (result) {
+      this.avatarSrc = result;
+      //close the modal
+      this._clearUploadAvatarModal();
+    },
+
+    changeFileInput: function(files) {
+      if (files.length !== 1 && !this.uploadFormData.avatar) {
+        throw new Error('Consistency violation: `changeFileInput` was somehow called with an empty array of files, or with more than one file in the array!  This should never happen unless there is already an uploaded file tracked.');
+      }
+      var selectedFile = files[0];
+      // If you cancel from the native upload window when you already
+      // have a avatar tracked, then we just avast (return early).
+      // In this case, we just leave whatever you had there before.
+      if (!selectedFile && this.uploadFormData.avatar) {
+        return;
+      }
+
+      this.uploadFormData.avatar = selectedFile;
+
+      // Set up the file preview for the UI:
+      var reader = new FileReader();
+      reader.onload = (event)=>{
+        this.uploadFormData.previewImageSrc = event.target.result;
+
+        // Unbind this "onload" event.
+        delete reader.onload;
+      };
+      // Clear out any error messages about not providing an image.
+      this.formErrors.avatar = false;
+      reader.readAsDataURL(selectedFile);
+    },
   }
 });

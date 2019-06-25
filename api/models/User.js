@@ -155,6 +155,18 @@ without necessarily having a billing card.`
       example: 1502844074211
     },
 
+    avatarFd: {
+      type: 'string',
+      required: false,
+      description: 'will either have "text" or "avatarFd"'
+    },
+
+    avatarMime: {
+      type: 'string',
+      required: false,
+      description: 'required if "avatarFd" provided'
+    },
+
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
     //  ╚═╝╩ ╩╚═╝╚═╝═╩╝╚═╝
@@ -166,7 +178,9 @@ without necessarily having a billing card.`
     // n/a
     memberOf: {
       model: 'group',
-    }
+    },
+
+    friends: { collection: 'User' }
 
   },
 

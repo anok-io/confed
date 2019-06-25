@@ -1,24 +1,85 @@
 <div id="group" v-cloak>
-  <h1>TODO: Implement the Group page.</h1>
-  <p>(See also <em>assets/styles/pages/group/group.less</em>, <em>assets/js/pages/group/group.page.js</em>, and <em>api/controllers/group/view-group.js</em>.)</p>
-  <p> Default page for a users group functions.</p>
-  <ul>
-    <li>Users can create a group if they are not already a member of a group</li>
-    <li>Users can apply to join a group</li>
-    <li>Users can see and accept applications to a group (all members of the group must have accepted the join group request for the new member to join)</li>
-    <li>Users can see available agenda items for the group</li>
-    <li>Users can submit a new agenda item</li>
-    <li>Offers from other groups to federate</li>
-  </ul>
-<div id="group">
-<h2>My Group</h2>
-<p>My group is {{memberOf || 'not yet chosen.'}}
-</div>
-<div v-if="allGroups > 0">
-<h2>Groups</h2>
-    <ul>
-      <li v-for="group in allGroups" @click="clickGroup(group.id)">{{group.name}}</li>
+  <div class="container">
+    <div class="page-header text-center">
+      <h1>{{group.name || 'Groups'}}</h1>
+      <hr />
+      <h2>Organise your group</h2>
+      <div class="header-buttons">
+        <a class="btn btn-sm btn-outline-info create-group-button" href="/group/create" v-if="group">Create Group</a>
+        <a class="btn btn-sm btn-outline-info agenda-item-button" href="/agenda-item/create">Create Agenda Item</a>
+        <a class="btn btn-sm btn-outline-info delete-group-button" href="#" @click="clickDeleteGroup(group.id)">Delete my Group</a>
+      </div>
     </div>
-    </ul>
+    <p />
+    <%#
+    <p> Default page for a users group functions.</p>
+    <ul>
+      <li>Users can create a group if they are not already a member of a group</li>
+      <li>Users can apply to join a group</li>
+      <li>Users can see and accept applications to a group (all members of the group must have accepted the join group request for the new member to join)</li>
+      <li>Users can see available agenda items for the group</li>
+      <li>Users can submit a new agenda item</li>
+      <li>Offers from other groups to federate</li>
+    </ul> %>
+
+    <div v-if="comrades.length > 0">
+      <h2>Members of {{group.name}}</h2>
+      <div class="card-deck" v-if="comrades.length > 0">
+
+        <div class="card" :key="'comrade'+comrade.id" v-for="comrade in comrades" style="max-width: 128px;">
+          <img class="card-img-top" src="https://randomuser.me/api/portraits/women/6.jpg" :alt="comrade.fullName">
+          <div class="card-body">
+            <h5 class="card-title">{{comrade.fullName}}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div v-if="allGroups">
+      <h2>Other groups in my Local</h2>
+      <div class="card-deck">
+        <div class="card" :key="'group'+group.id" v-for="group in allGroups">
+          <img class="card-img-top" src="https://placeimg.com/200/200/animals" :alt="group.name">
+          <div class="card-body">
+            <h5 class="card-title">{{group.name}}</h5>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">
+              <a href="#" class="card-link">View</a>
+              <a href="#" class="card-link">Contact</a>
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%- /* "Confirm Delete Group" Modal */ %>
+<modal v-if="confirmDeleteGroupModalOpen" v-cloak @close="closeDeleteGroupModal()">
+    <div class="modal-header">
+        <h5 class="modal-title">Delete your group?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span>&times;</span>
+        </button>
+      </div>
+      <ajax-form action="destroyMyGroup"
+                 :syncing.sync="syncing"
+                 :cloud-error.sync="cloudError"
+                 :handle-parsing="handleParsingDeleteGroupForm"
+                 @submitted="submittedDeleteGroupForm()">
+        <div class="modal-body">
+          <p>This group will be deleted and all associated data lost forever. Discussions, agenda items, the lot.</p>
+          <p class="text-danger" v-if="cloudError"><small>An error occured while processing your request. Please check your information and try again, or <a href="/contact">contact support</a> if the error persists.</small></p>
+          <p class="text-danger" v-if="group.members.length > 1"><small>You cannot delete a group unless you are the only member. Please <a href="/contact">contact support</a> if this cannot be resolved.</small></p>
+        </div>
+        <div class="modal-footer">
+          <button data-dismiss="modal" class="btn btn-outline-secondary mr-1">Nevermind</button>
+          <ajax-button type="submit" class="btn btn-danger ml-1" :disabled="group.members.length > 1">Remove</ajax-button>
+        </div>
+      </ajax-form>
+</modal>
 </div>
+
+
+
+
 <%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>
