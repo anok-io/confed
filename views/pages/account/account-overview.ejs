@@ -42,13 +42,9 @@
     <hr/>
     <div class="row">
       <div class="col-3">Avatar:</div>
-      <div class="col">
-                <form action="user/uploadAvatar" method="post" enctype="multipart/form-data">
-		<input type="hidden" name="_csrf" value="<%= _csrf %>" />
-                    <label>Please upload your avatar:</label>
-                    <input type="file" name="avatar" accept="image/*" class="file-input" />
-                    <input type="submit"/>
-                </form>
+      <div class="col-2"><img fluid class="img-thumbnail rounded-circle" :src="`/api/v1/user/${me.id}/avatar`" /></div>
+      <div class="col-3">
+        <a class="btn btn-sm btn-outline-info upload-avatar-button" href="#" @click="clickUploadAvatar()">Upload Avatar</a>
       </div>
     </div>
     <hr/>
@@ -103,6 +99,48 @@
       <div class="modal-footer">
         <button data-dismiss="modal" class="btn btn-outline-secondary mr-1">Nevermind</button>
         <ajax-button type="submit" :syncing="syncingRemoveCard" class="btn btn-danger ml-1">Remove</ajax-button>
+      </div>
+    </ajax-form>
+  </modal>
+
+    <% /* "Upload avatar" modal */ %>
+  <modal v-if="uploadAvatarModelOpen" @close="closeUploadAvatarModal()" >
+    <div class="modal-header">
+      <h5 class="modal-title">Upload a new avatar</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span>&times;</span>
+      </button>
+    </div>
+    <ajax-form action="uploadAvatar" :syncing.sync="syncingAvatar" :cloud-error.sync="cloudError" :handle-parsing="handleParsingUploadAvatarForm" @submitted="submittedUploadAvatarForm($event)">
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Add an avatar:</label>
+          <div class="avatar-uploader" :class="!uploadFormData.previewImageSrc ? 'empty' :  ''">
+            <div class="avatar-upload-field row d-flex align-items-center" :class="!uploadFormData.previewImageSrc ? 'justify-content-center' :  'justify-content-start'" >
+              <div class="avatar-preview col">
+                <div class="image-wrapper" :class="!uploadFormData.previewImageSrc ? 'd-flex align-items-center justify-content-center' : ''">
+                  <img v-if="uploadFormData.previewImageSrc" alt="A preview of the selected item" :src="uploadFormData.previewImageSrc"/>
+                  <span v-else class="placeholder-icon fa fa-picture-o"></span>
+                </div>
+              </div>
+              <div class="col d-flex-column justify-content-center">
+                <span class="file-upload-button btn btn-sm" :class="[formErrors.avatar ? 'btn-outline-danger' : !uploadFormData.previewImageSrc ? 'btn-outline-success' : 'btn-outline-secondary mr-3']">
+                  <span class="button-text" v-if="!uploadFormData.previewImageSrc">Select image</span>
+                  <span class="button-text" v-else>Change image</span>
+                  <input type="file" :disabled="syncingAvatar" accept="image/*" class="file-input" @change="changeFileInput($event.target.files)"/>
+                </span>
+                <p class="image-advice text-muted" v-if="!formErrors.avatar"><strong>Tip</strong>: Make sure your image is something that your comrades find easily identifiable as you.</p>
+                <p class="image-advice text-danger" v-if="formErrors.avatar">An avatar is required.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="text-danger" v-if="cloudError === 'tooBig'"><small>That file is too big. Please choose a junkier picture.</small></p>
+        <p class="text-danger" v-else-if="cloudError"><small>An error occured while processing your request. Please check your information and try again, or <a href="/support">contact support</a> if the error persists.</small></p>
+      </div>
+      <div class="modal-footer flex-row-reverse justify-content-start">
+        <ajax-button type="submit" :syncing="syncingAvatar" class="btn btn-primary ml-1">Submit avatar</ajax-button>
+        <button data-dismiss="modal" class="btn btn-outline-primary mr-1">Cancel</button>
       </div>
     </ajax-form>
   </modal>

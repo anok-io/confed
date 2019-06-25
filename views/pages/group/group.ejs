@@ -5,7 +5,7 @@
       <hr />
       <h2>Organise your group</h2>
       <div class="header-buttons">
-        <a class="btn btn-sm btn-outline-info create-group-button" href="/group/create">Create Group</a>
+        <a class="btn btn-sm btn-outline-info create-group-button" href="/group/create" v-if="group">Create Group</a>
         <a class="btn btn-sm btn-outline-info agenda-item-button" href="/agenda-item/create">Create Agenda Item</a>
         <a class="btn btn-sm btn-outline-info delete-group-button" href="#" @click="clickDeleteGroup(group.id)">Delete my Group</a>
       </div>
@@ -26,12 +26,10 @@
       <h2>Members of {{group.name}}</h2>
       <div class="card-deck" v-if="comrades.length > 0">
 
-        <div class="card" :key="'comrade'+comrade.id" v-for="comrade in comrades" style="max-width: 12rem;">
-          <img class="card-img-top" src="https://placeimg.com/120/120/people" :alt="comrade.fullName">
+        <div class="card" :key="'comrade'+comrade.id" v-for="comrade in comrades" style="max-width: 128px;">
+          <img class="card-img-top" src="https://randomuser.me/api/portraits/women/6.jpg" :alt="comrade.fullName">
           <div class="card-body">
             <h5 class="card-title">{{comrade.fullName}}</h5>
-            <a href="#" class="card-link">View</a>
-            <a href="#" class="card-link">Contact</a>
           </div>
         </div>
       </div>
@@ -49,7 +47,6 @@
             <small class="text-muted">
               <a href="#" class="card-link">View</a>
               <a href="#" class="card-link">Contact</a>
-              <a href="#" class="card-link" @click="clickDeleteGroup(group.id)">Delete</a>
             </small>
           </div>
         </div>
@@ -70,13 +67,13 @@
                  :handle-parsing="handleParsingDeleteGroupForm"
                  @submitted="submittedDeleteGroupForm()">
         <div class="modal-body">
-          <p>Are you sure you want to remove your group?</p>
-          <p>This group will be deleted and all associated data lost. Discussions, agenda items, the lot.</p>
-          <p class="text-danger"><small>PLACEHOLDER: An error occured while processing your request. Please check your information and try again, or <a href="/contact">contact support</a> if the error persists.</small></p>
+          <p>This group will be deleted and all associated data lost forever. Discussions, agenda items, the lot.</p>
+          <p class="text-danger" v-if="cloudError"><small>An error occured while processing your request. Please check your information and try again, or <a href="/contact">contact support</a> if the error persists.</small></p>
+          <p class="text-danger" v-if="group.members.length > 1"><small>You cannot delete a group unless you are the only member. Please <a href="/contact">contact support</a> if this cannot be resolved.</small></p>
         </div>
         <div class="modal-footer">
           <button data-dismiss="modal" class="btn btn-outline-secondary mr-1">Nevermind</button>
-          <ajax-button type="submit" class="btn btn-danger ml-1">Remove</ajax-button>
+          <ajax-button type="submit" class="btn btn-danger ml-1" :disabled="group.members.length > 1">Remove</ajax-button>
         </div>
       </ajax-form>
 </modal>

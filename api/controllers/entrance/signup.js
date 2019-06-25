@@ -16,6 +16,7 @@ If a verification email is sent, the new user's account is put in an "unconfirme
 until they confirm they are using a legitimate email address (by clicking the link in
 the account verification message.)`,
 
+  files: ['avatar'],
 
   inputs: {
 
@@ -40,7 +41,12 @@ the account verification message.)`,
       type: 'string',
       example: 'Frida Kahlo de Rivera',
       description: 'The user\'s full name.',
-    }
+    },
+
+    avatar: {
+      type: 'ref',
+      required: true
+  }
 
   },
 
@@ -69,14 +75,16 @@ the account verification message.)`,
   fn: async function (inputs) {
 
     var newEmailAddress = inputs.emailAddress.toLowerCase();
-
+    const avatarInfo = await sails.uploadOne(inputs.avatar);
     // Build up data for the new user record and save it to the database.
     // (Also use `fetch` to retrieve the new ID so that we can use it below.)
     var newUserRecord = await User.create(_.extend({
       emailAddress: newEmailAddress,
       password: await sails.helpers.passwords.hashPassword(inputs.password),
       fullName: inputs.fullName,
-      tosAcceptedByIp: this.req.ip
+      tosAcceptedByIp: this.req.ip,
+      avatarFd: avatarInfo.fd,
+      avatarMime: avatarInfo.type
     }, sails.config.custom.verifyEmailAddresses? {
       emailProofToken: await sails.helpers.strings.random('url-friendly'),
       emailProofTokenExpiresAt: Date.now() + sails.config.custom.emailProofTokenTTL,
