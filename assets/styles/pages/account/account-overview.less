@@ -14,4 +14,39 @@
       color: @text-normal;
     }
   }
+
+  .avatar-uploader {
+    // padding: 5px;
+    .avatar-upload-field {
+      min-height: 150px;
+      .file-upload-button {
+        position: relative;
+        cursor: pointer;
+        .file-input {
+          opacity: 0;
+          width: 100%;
+          height: 100%;
+          top: 0px;
+          left: 0px;
+          position: absolute;
+          cursor: pointer;
+        }
+      }
+
+      .avatar-preview {
+        .image-wrapper {
+          background-color: @bg-lt-gray;
+          width: 100%;
+          img {
+            width: 100%;
+          }
+          .placeholder-icon {
+            color: @text-muted;
+            font-size: 42px;
+          }
+        }
+      }
+
+  }
+}
 }

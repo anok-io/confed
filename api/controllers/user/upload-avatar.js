@@ -35,7 +35,7 @@ module.exports = {
   },
 
 
-  fn: async function ({avatar}) {
+  fn: async function ({ avatar }) {
     var url = require('url');
     var util = require('util');
 
@@ -44,36 +44,37 @@ module.exports = {
       maxBytes: 100000,
       dirname: require('path').resolve(sails.config.appPath, 'uploads')
     })
-    // Note: E_EXCEEDS_UPLOAD_LIMIT is the error code for exceeding
-    // `maxBytes` for both skipper-disk and skipper-s3.
-    .intercept('E_EXCEEDS_UPLOAD_LIMIT', 'tooBig')
-    .intercept((err)=>new Error('The avatar upload failed: '+util.inspect(err)));
+      // Note: E_EXCEEDS_UPLOAD_LIMIT is the error code for exceeding
+      // `maxBytes` for both skipper-disk and skipper-s3.
+      .intercept('E_EXCEEDS_UPLOAD_LIMIT', 'tooBig')
+      .intercept((err) => new Error('The avatar upload failed: ' + util.inspect(err)));
 
-    if(!info) {
+    if (!info) {
       throw 'noFileAttached';
     }
 
     // Image should be uploaded, so remove the old avatar file on the system if it exists
     // TODO : for some reason the file is not being removed ...
     // TODO " error checking
-    // var fs = require('fs');
-    // if (this.req.me.avatarFd) {
-    //   await fs.unlinkSync(this.req.me.avatarFd);
-    // }
+    var fs = require('fs');
+    fs.unlink(this.req.me.avatarFd, (err) => {
+      if (err) {
+        throw err;
+      }
+      // if no error, file has been deleted successfully
+      console.log('File deleted!');
+    });
+
 
     // Update the users avatar record.
-    await console.log(`fd = ${info.fd} type = ${info.type}`);
     await User.update(this.req.me.id, {
       avatarFd: info.fd,
       avatarMime: info.type,
     });
 
-    var imageSrc = url.resolve(sails.config.custom.baseUrl, '/api/v1/user/'+this.req.me.id+'/avatar');
-
+    var imageSrc = url.resolve(sails.config.custom.baseUrl, '/api/v1/user/' + this.req.me.id + '/avatar');
     // Return the newly-created avatars `imageSrc`
-    return {
-      imageSrc
-    };
+    return imageSrc;
 
   }
 

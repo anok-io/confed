@@ -3,6 +3,9 @@ parasails.registerPage('account-overview', {
   //  ║║║║║ ║ ║╠═╣║    ╚═╗ ║ ╠═╣ ║ ║╣
   //  ╩╝╚╝╩ ╩ ╩╩ ╩╩═╝  ╚═╝ ╩ ╩ ╩ ╩ ╚═╝
   data: {
+
+    virtualPageSlug: '',
+
     isBillingEnabled: false,
 
     hasBillingCard: false,
@@ -11,12 +14,13 @@ parasails.registerPage('account-overview', {
     syncingOpenCheckout: false,
     syncingUpdateCard: false,
     syncingRemoveCard: false,
-    syncingAvatar: false,
+    syncing: false,
 
     // upload form management
-
-    uploadAvatarModelOpen: false,
-    uploadFormData: {},
+    uploadFormData: {
+      avatar: undefined,
+      previewImageSrc: ''
+    },
 
     // Form data
     formData: { /* … */ },
@@ -33,6 +37,10 @@ parasails.registerPage('account-overview', {
     // For the confirmation modal:
     removeCardModalVisible: false,
   },
+
+  virtualPages: true,
+  html5HistoryMode: 'history',
+  virtualPagesRegExp: /^\/account\/?([^\/]+)?/,
 
   //  ╦  ╦╔═╗╔═╗╔═╗╦ ╦╔═╗╦  ╔═╗
   //  ║  ║╠╣ ║╣ ║  ╚╦╝║  ║  ║╣
@@ -127,14 +135,17 @@ parasails.registerPage('account-overview', {
     },
 
     clickUploadAvatar: function () {
-      this.uploadAvatarModelOpen = true;
+      this.goto('account/avatar');
     },
 
     _clearUploadAvatarModal: function() {
       // Close Modal
-      this.uploadAvatarModelOpen = false;
+      this.goto('/account');
       // Reset form data
-      this.uploadFormData = {};
+      this.uploadFormData = {
+        avatar: undefined,
+        previewImageSrc: ''
+      };
       // clear error states
       this.formErrors = {};
       this.cloudError = '';
@@ -148,7 +159,6 @@ parasails.registerPage('account-overview', {
       this.formErrors = {};
       var argins = this.uploadFormData;
 
-      // TODO : validations
       if (!argins.avatar) {
         this.formErrors.avatar = true;
       }
@@ -160,8 +170,7 @@ parasails.registerPage('account-overview', {
     },
 
     submittedUploadAvatarForm: function (result) {
-      // TODO
-
+      this.avatarSrc = result;
       //close the modal
       this._clearUploadAvatarModal();
     },
@@ -171,7 +180,6 @@ parasails.registerPage('account-overview', {
         throw new Error('Consistency violation: `changeFileInput` was somehow called with an empty array of files, or with more than one file in the array!  This should never happen unless there is already an uploaded file tracked.');
       }
       var selectedFile = files[0];
-
       // If you cancel from the native upload window when you already
       // have a avatar tracked, then we just avast (return early).
       // In this case, we just leave whatever you had there before.

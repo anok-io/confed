@@ -42,9 +42,9 @@
     <hr/>
     <div class="row">
       <div class="col-3">Avatar:</div>
-      <div class="col-2"><img fluid class="img-thumbnail rounded-circle" :src="`/api/v1/user/${me.id}/avatar`" /></div>
+      <div class="col-2"><img fluid class="img-thumbnail rounded-circle" :src="!this.avatarSrc ? `/api/v1/user/${me.id}/avatar` : this.avatarSrc" /></div>
       <div class="col-3">
-        <a class="btn btn-sm btn-outline-info upload-avatar-button" href="#" @click="clickUploadAvatar()">Upload Avatar</a>
+        <button class="btn btn-outline-primary" @click="clickUploadAvatar()">Upload Avatar</button>
       </div>
     </div>
     <hr/>
@@ -104,14 +104,14 @@
   </modal>
 
     <% /* "Upload avatar" modal */ %>
-  <modal v-if="uploadAvatarModelOpen" @close="closeUploadAvatarModal()" >
+  <modal  v-if="virtualPageSlug === 'avatar'" v-cloak key="avatar" @close="closeUploadAvatarModal()" >
     <div class="modal-header">
       <h5 class="modal-title">Upload a new avatar</h5>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span>&times;</span>
       </button>
     </div>
-    <ajax-form action="uploadAvatar" :syncing.sync="syncingAvatar" :cloud-error.sync="cloudError" :handle-parsing="handleParsingUploadAvatarForm" @submitted="submittedUploadAvatarForm($event)">
+    <ajax-form action="uploadAvatar" :syncing.sync="syncing" :cloud-error.sync="cloudError" :handle-parsing="handleParsingUploadAvatarForm" @submitted="submittedUploadAvatarForm($event)">
       <div class="modal-body">
         <div class="form-group">
           <label>Add an avatar:</label>
@@ -127,7 +127,7 @@
                 <span class="file-upload-button btn btn-sm" :class="[formErrors.avatar ? 'btn-outline-danger' : !uploadFormData.previewImageSrc ? 'btn-outline-success' : 'btn-outline-secondary mr-3']">
                   <span class="button-text" v-if="!uploadFormData.previewImageSrc">Select image</span>
                   <span class="button-text" v-else>Change image</span>
-                  <input type="file" :disabled="syncingAvatar" accept="image/*" class="file-input" @change="changeFileInput($event.target.files)"/>
+                  <input type="file" :disabled="syncing" accept="image/*" class="file-input" @change="changeFileInput($event.target.files)"/>
                 </span>
                 <p class="image-advice text-muted" v-if="!formErrors.avatar"><strong>Tip</strong>: Make sure your image is something that your comrades find easily identifiable as you.</p>
                 <p class="image-advice text-danger" v-if="formErrors.avatar">An avatar is required.</p>
@@ -139,10 +139,12 @@
         <p class="text-danger" v-else-if="cloudError"><small>An error occured while processing your request. Please check your information and try again, or <a href="/support">contact support</a> if the error persists.</small></p>
       </div>
       <div class="modal-footer flex-row-reverse justify-content-start">
-        <ajax-button type="submit" :syncing="syncingAvatar" class="btn btn-primary ml-1">Submit avatar</ajax-button>
+        <ajax-button type="submit" :syncing="syncing" class="btn btn-primary ml-1">Submit avatar</ajax-button>
         <button data-dismiss="modal" class="btn btn-outline-primary mr-1">Cancel</button>
       </div>
     </ajax-form>
   </modal>
+  <%/* For virtual pages */%>
+  <router-view></router-view>
 </div>
 <%- /* Expose locals as `window.SAILS_LOCALS` :: */ exposeLocalsToBrowser() %>
