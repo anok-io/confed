@@ -45,7 +45,7 @@ the account verification message.)`,
 
     avatar: {
       type: 'ref',
-      required: true
+      required: false
   }
 
   },
@@ -75,7 +75,6 @@ the account verification message.)`,
   fn: async function (inputs) {
 
     var newEmailAddress = inputs.emailAddress.toLowerCase();
-    const avatarInfo = await sails.uploadOne(inputs.avatar);
     // Build up data for the new user record and save it to the database.
     // (Also use `fetch` to retrieve the new ID so that we can use it below.)
     var newUserRecord = await User.create(_.extend({
@@ -83,8 +82,6 @@ the account verification message.)`,
       password: await sails.helpers.passwords.hashPassword(inputs.password),
       fullName: inputs.fullName,
       tosAcceptedByIp: this.req.ip,
-      avatarFd: avatarInfo.fd,
-      avatarMime: avatarInfo.type
     }, sails.config.custom.verifyEmailAddresses? {
       emailProofToken: await sails.helpers.strings.random('url-friendly'),
       emailProofTokenExpiresAt: Date.now() + sails.config.custom.emailProofTokenTTL,

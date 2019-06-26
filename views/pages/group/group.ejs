@@ -36,7 +36,7 @@
     </div>
 
     <div v-if="allGroups">
-      <h2>Other groups in my Local</h2>
+      <h2>Other groups</h2>
       <div class="card-deck">
         <div class="card" :key="'group'+group.id" v-for="group in allGroups">
           <img class="card-img-top" src="https://placeimg.com/200/200/animals" :alt="group.name">

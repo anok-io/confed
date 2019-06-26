@@ -19,7 +19,7 @@ module.exports = {
   fn: async function () {
     // Return users group if it exists, otherwise prompt for creating a group
     var group = 'not yet chosen'; // setting a default for new users
-    var comrades;
+    var comrades = [];
     if (this.req.me.memberOf) {
       group = await Group.findOne({
         id: this.req.me.memberOf
