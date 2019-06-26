@@ -54,17 +54,17 @@ module.exports = {
     }
 
     // Image should be uploaded, so remove the old avatar file on the system if it exists
-    // TODO : for some reason the file is not being removed ...
-    // TODO " error checking
-    var fs = require('fs');
-    fs.unlink(this.req.me.avatarFd, (err) => {
-      if (err) {
-        throw err;
+    const fs = require('fs');
+    const filePath = this.req.me.avatarFd;
+    fs.access(filePath, error => {
+      if (!error) {
+        fs.unlink(filePath, (error) => {
+          console.log(error);
+        });
+      } else {
+        console.log(error);
       }
-      // if no error, file has been deleted successfully
-      console.log('File deleted!');
     });
-
 
     // Update the users avatar record.
     await User.update(this.req.me.id, {

@@ -104,7 +104,7 @@
   </modal>
 
     <% /* "Upload avatar" modal */ %>
-  <modal  v-if="virtualPageSlug === 'avatar'" v-cloak key="avatar" @close="closeUploadAvatarModal()" >
+  <modal @close="closeUploadAvatarModal()" v-cloak v-if="uploadAvatarModelOpen">
     <div class="modal-header">
       <h5 class="modal-title">Upload a new avatar</h5>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -144,7 +144,5 @@
       </div>
     </ajax-form>
   </modal>
-  <%/* For virtual pages */%>
-  <router-view></router-view>
 </div>
 <%- /* Expose locals as `window.SAILS_LOCALS` :: */ exposeLocalsToBrowser() %>

@@ -4,8 +4,6 @@ parasails.registerPage('account-overview', {
   //  ╩╝╚╝╩ ╩ ╩╩ ╩╩═╝  ╚═╝ ╩ ╩ ╩ ╩ ╚═╝
   data: {
 
-    virtualPageSlug: '',
-
     isBillingEnabled: false,
 
     hasBillingCard: false,
@@ -17,6 +15,7 @@ parasails.registerPage('account-overview', {
     syncing: false,
 
     // upload form management
+    uploadAvatarModelOpen: false,
     uploadFormData: {
       avatar: undefined,
       previewImageSrc: ''
@@ -37,10 +36,6 @@ parasails.registerPage('account-overview', {
     // For the confirmation modal:
     removeCardModalVisible: false,
   },
-
-  virtualPages: true,
-  html5HistoryMode: 'history',
-  virtualPagesRegExp: /^\/account\/?([^\/]+)?/,
 
   //  ╦  ╦╔═╗╔═╗╔═╗╦ ╦╔═╗╦  ╔═╗
   //  ║  ║╠╣ ║╣ ║  ╚╦╝║  ║  ║╣
@@ -135,12 +130,12 @@ parasails.registerPage('account-overview', {
     },
 
     clickUploadAvatar: function () {
-      this.goto('account/avatar');
+      this.uploadAvatarModelOpen = true;
     },
 
     _clearUploadAvatarModal: function() {
       // Close Modal
-      this.goto('/account');
+      this.uploadAvatarModelOpen = false;
       // Reset form data
       this.uploadFormData = {
         avatar: undefined,
