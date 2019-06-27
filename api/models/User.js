@@ -179,7 +179,7 @@ without necessarily having a billing card.`
       model: 'group',
     },
 
-    friends: { collection: 'User' },
+    comrades: { collection: 'User' },
     inboundComradeRequests: {collection: 'User', via: 'outboundComradeRequests'},
     outboundComradeRequests: {collection: 'User', via: 'inboundComradeRequests'},
 
