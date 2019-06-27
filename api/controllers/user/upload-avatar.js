@@ -72,9 +72,8 @@ module.exports = {
       avatarMime: info.type,
     });
 
-    var imageSrc = url.resolve(sails.config.custom.baseUrl, '/api/v1/user/' + this.req.me.id + '/avatar');
     // Return the newly-created avatars `imageSrc`
-    return imageSrc;
+    return url.resolve(sails.config.custom.baseUrl, '/api/v1/user/' + this.req.me.id + '/avatar'+ '?' + Math.Random());
 
   }
 

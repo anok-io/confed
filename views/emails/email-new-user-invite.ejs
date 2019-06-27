@@ -1,0 +1,10 @@
+<% /* Note: This is injected into `views/layouts/layout-email.ejs` */ %>
+<h2 style="text-align: center; color: #aaa; margin:0px; font-size: 1.2em;max-width: 280px; margin-left: auto; margin-right: auto;"><%= potentialFriendFullName %> wants to share their stuff.</h2>
+<div style="background-color: #77BE69; margin-top: 25px; margin-bottom: 35px;height: 2px; width: 100px; margin-left: auto; margin-right: auto;"></div>
+<p style="margin-bottom: 25px;">Dear <%= fullName %>,</p>
+<p style="margin-bottom: 15px;"><%= potentialComradeFullName %> has invited you to sign up for CONFED. Click the button below to claim your account and start organising together:</p>
+<div style="margin-bottom: 25px; text-align: center;">
+  <a style="background-color: #28AFB0; display: inline-block; font-size: 1.1em; color: #fff; padding: 10px 35px 10px; font-weight: 500; text-decoration: none; border-radius: 7px;" href="<%=url.resolve(sails.config.custom.baseUrl,'/claim-account')+'?token='+encodeURIComponent(token)%>">Claim account</a>
+</div>
+<p style="margin-bottom: 5px;">Sincerely,</p>
+<p style="margin-top: 0px;">The Confed Team</p>

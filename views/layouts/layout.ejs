@@ -50,6 +50,8 @@
         <div class="navbar-nav flex-row">
           <!-- LOGGED-IN NAVIGATION -->
           <% if(me) { %>
+            <a class="nav-item nav-link text-dark ml-2 mr-2 <%= typeof currentSection !== 'undefined' && currentSection === 'comrades' ? 'current' : ''%>"
+               href="/friends">Comrades</a>
           <a class="nav-item nav-link ml-2 ml-md-0 mr-2 mr-md-0" href="/contact">Help</a>
           <!-- Only in desktop nav -->
           <div class="nav-item dropdown d-none d-sm-block">
@@ -149,6 +151,7 @@
     <script src="/js/pages/account/account-overview.page.js"></script>
     <script src="/js/pages/account/edit-password.page.js"></script>
     <script src="/js/pages/account/edit-profile.page.js"></script>
+    <script src="/js/pages/comrades/comrades.page.js"></script>
     <script src="/js/pages/contact.page.js"></script>
     <script src="/js/pages/dashboard/welcome.page.js"></script>
     <script src="/js/pages/entrance/confirmed-email.page.js"></script>

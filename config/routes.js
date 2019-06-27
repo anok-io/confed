@@ -35,6 +35,7 @@ module.exports.routes = {
 
   'GET /group':                         { action: 'group/view-group' },
 
+  'GET /claim-account':      { action: 'entrance/view-claim-account' },
 
 
 
@@ -68,4 +69,8 @@ module.exports.routes = {
   'DELETE /api/v1/group/destroy-my-group':               { action: 'group/destroy-my-group' },
   'POST /api/v1/user/upload-avatar':                     { action: 'user/upload-avatar' },
   'GET /api/v1/user/:id/avatar/':                         { action: 'user/get-avatar' },
+
+  'DELETE  /api/v1/comrades/:id':                      { action: 'comrades/remove-comrade' },
+  'POST   /api/v1/comrades':                           { action: 'comrades/add-comrades' },
+  'PUT    /api/v1/approve-comrade':                    { action: 'comrades/approve-comrade' },
 };

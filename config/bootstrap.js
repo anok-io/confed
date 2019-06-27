@@ -78,11 +78,10 @@ module.exports.bootstrap = async function() {
     password: await sails.helpers.passwords.hashPassword('abc123')
   }).fetch();
 
-  // TODO: Friends system
-  // Add some initial friends in the system
+  // Add some initial comrades in the system
   // addCollection(owner of the association, association name, members being added)
-  // await User.addToCollection(testUser.id, 'friends', anarchoSyn.id);
-  // await User.addToCollection(anarchoSyn.id, 'friends', testUser.id);
+  await User.addToCollection(testUser.id, 'comrades', anarchoSyn.id);
+  await User.addToCollection(anarchoSyn.id, 'comrades', testUser.id);
 
   // Setup ASF-IWA
   // create groups ASF NWT and ASF MNE and add our base users to them
