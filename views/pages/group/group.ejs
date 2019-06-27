@@ -1,32 +1,21 @@
 <div id="group" v-cloak>
   <div class="container">
     <div class="page-header text-center">
-      <h1>{{group.name || 'Groups'}}</h1>
+      <h1>{{me.memberOf.name || 'Groups'}}</h1>
       <hr />
       <h2>Organise your group</h2>
       <div class="header-buttons">
-        <a class="btn btn-sm btn-outline-info create-group-button" href="/group/create" v-if="group">Create Group</a>
+        <a class="btn btn-sm btn-outline-info create-group-button" href="/group/create" v-if="me.memberOf < 0">Create Group</a>
         <a class="btn btn-sm btn-outline-info agenda-item-button" href="/agenda-item/create">Create Agenda Item</a>
-        <a class="btn btn-sm btn-outline-info delete-group-button" href="#" @click="clickDeleteGroup(group.id)">Delete my Group</a>
+        <a class="btn btn-sm btn-outline-info delete-group-button" href="#" @click="clickDeleteGroup(me.memberOf.id)">Delete my Group</a>
       </div>
     </div>
     <p />
-    <%#
-    <p> Default page for a users group functions.</p>
-    <ul>
-      <li>Users can create a group if they are not already a member of a group</li>
-      <li>Users can apply to join a group</li>
-      <li>Users can see and accept applications to a group (all members of the group must have accepted the join group request for the new member to join)</li>
-      <li>Users can see available agenda items for the group</li>
-      <li>Users can submit a new agenda item</li>
-      <li>Offers from other groups to federate</li>
-    </ul> %>
+    <div v-if="me.comrades.length > 0">
+      <h2>Members of {{me.memberOf.name}}</h2>
+      <div class="card-deck">
 
-    <div v-if="comrades.length > 0">
-      <h2>Members of {{group.name}}</h2>
-      <div class="card-deck" v-if="comrades.length > 0">
-
-        <div class="card" :key="'comrade'+comrade.id" v-for="comrade in comrades" style="max-width: 128px;">
+        <div class="card" :key="'comrade'+comrade.id" v-for="comrade in me.comrades" style="max-width: 128px;">
           <img class="card-img-top" src="https://randomuser.me/api/portraits/women/6.jpg" :alt="comrade.fullName">
           <div class="card-body">
             <h5 class="card-title">{{comrade.fullName}}</h5>

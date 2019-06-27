@@ -176,7 +176,7 @@ without necessarily having a billing card.`
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
     // n/a
     memberOf: {
-      model: 'group',
+      model: 'group'
     },
 
     comrades: { collection: 'User' },

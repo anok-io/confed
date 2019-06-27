@@ -165,7 +165,11 @@ will be disabled and/or hidden in the UI.
             // Otherwise, look up the logged-in user.
             var loggedInUser = await User.findOne({
               id: req.session.userId
-            });
+            })
+              .populate('comrades')
+              .populate('memberOf')
+              .populate('inboundComradeRequests')
+              .populate('outboundComradeRequests');
 
             // If the logged-in user has gone missing, log a warning,
             // wipe the user id from the requesting user agent's session,

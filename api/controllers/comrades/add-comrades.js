@@ -19,8 +19,8 @@ module.exports = {
       ],
       example: [
         {
-          fullName: 'Rory Milliard',
-          emailAddress: 'rory@example.com'
+          fullName: 'Mikhail Bakunin',
+          emailAddress: 'bakunin@example.com'
         }
       ],
       required: true
@@ -44,7 +44,7 @@ module.exports = {
         // Send a notification email.
         await sails.helpers.sendTemplateEmail.with({
           to: comrade.emailAddress,
-          subject: `${this.req.me.fullName} wants to share stuff on Ration!`,
+          subject: `${this.req.me.fullName} wants to organise on Confed!`,
           template: 'email-new-comrade-request',
           templateData: {
             potentialComradeFullName: this.req.me.fullName,
@@ -55,7 +55,7 @@ module.exports = {
       }
       else {
         // Otherwise, we need to create a new user.
-        var token = await sails.helpers.strings.random('url-comradely');
+        var token = await sails.helpers.strings.random('url-friendly');
         var newUser = await User.create({
           fullName: comrade.fullName,
           emailAddress: comrade.emailAddress,
