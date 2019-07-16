@@ -73,7 +73,7 @@ module.exports = {
     });
 
     // Return the newly-created avatars `imageSrc`
-    return url.resolve(sails.config.custom.baseUrl, '/api/v1/user/' + this.req.me.id + '/avatar'+ '?' + Math.Random());
+    return url.resolve(sails.config.custom.baseUrl, '/api/v1/user/' + this.req.me.id + '/avatar'+ '?' + Math.random());
 
   }
 

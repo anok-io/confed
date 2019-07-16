@@ -176,12 +176,14 @@ without necessarily having a billing card.`
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
     // n/a
     memberOf: {
-      model: 'group'
+      model: 'group',
     },
 
-    comrades: { collection: 'User' },
-    inboundComradeRequests: {collection: 'User', via: 'outboundComradeRequests'},
-    outboundComradeRequests: {collection: 'User', via: 'inboundComradeRequests'},
+    comrades: { collection: 'User', description: 'All of the other users this user can organise with.' },
+
+    outboundComradeRequests: { collection: 'User', via: 'inboundComradeRequests', description: 'The comrade requests this user has sent.' },
+
+    inboundComradeRequests: { collection: 'User', via: 'outboundComradeRequests', description: 'The comrade requests this user has received.' },
 
   },
 

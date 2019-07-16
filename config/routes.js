@@ -67,11 +67,14 @@ module.exports.routes = {
   'POST  /api/v1/entrance/send-password-recovery-email': { action: 'entrance/send-password-recovery-email' },
   'POST  /api/v1/entrance/update-password-and-login':    { action: 'entrance/update-password-and-login' },
   'POST  /api/v1/deliver-contact-form-message':          { action: 'deliver-contact-form-message' },
-  'DELETE /api/v1/group/destroy-my-group':               { action: 'group/destroy-my-group' },
-  'POST /api/v1/user/upload-avatar':                     { action: 'user/upload-avatar' },
-  'GET /api/v1/user/:id/avatar/':                         { action: 'user/get-avatar' },
 
-  'DELETE  /api/v1/comrades/:id':                      { action: 'comrades/remove-comrade' },
-  'POST   /api/v1/comrades':                           { action: 'comrades/add-comrades' },
-  'PUT    /api/v1/approve-comrade':                    { action: 'comrades/approve-comrade' },
+  'POST  /api/v1/user/upload-avatar':                    { action: 'user/upload-avatar' },
+  'GET   /api/v1/user/:id/avatar/':                      { action: 'user/get-avatar' },
+
+  'POST    /api/v1/group/add-my-group':                   { action: 'group/add-my-group' },
+  'DELETE  /api/v1/group/destroy-my-group':               { action: 'group/destroy-my-group' },
+
+  'DELETE  /api/v1/comrades/:id':                         { action: 'comrades/remove-comrade' },
+  'POST    /api/v1/comrades':                             { action: 'comrades/add-comrades' },
+  'PUT     /api/v1/approve-comrade':                      { action: 'comrades/approve-comrade' },
 };

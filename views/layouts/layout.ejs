@@ -50,7 +50,7 @@
         <div class="navbar-nav flex-row">
           <!-- LOGGED-IN NAVIGATION -->
           <% if(me) { %>
-            <a class="nav-item nav-link ml-2 mr-2 <%= typeof currentSection !== 'undefined' && currentSection === 'comrades' ? 'current' : ''%>"
+            <a class="nav-item nav-link <%= typeof currentSection !== 'undefined' && currentSection === 'comrades' ? 'current' : ''%>"
                href="/comrades">Comrades</a>
           <a class="nav-item nav-link ml-2 ml-md-0 mr-2 mr-md-0" href="/contact">Help</a>
           <!-- Only in desktop nav -->

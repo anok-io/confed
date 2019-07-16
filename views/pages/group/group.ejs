@@ -11,16 +11,39 @@
       </div>
     </div>
     <p />
-    <div v-if="me.comrades.length > 0">
-      <h2>Members of {{me.memberOf.name}}</h2>
-      <div class="card-deck">
 
-        <div class="card" :key="'comrade'+comrade.id" v-for="comrade in me.comrades" style="max-width: 128px;">
-          <img class="card-img-top" src="https://randomuser.me/api/portraits/women/6.jpg" :alt="comrade.fullName">
-          <div class="card-body">
-            <h5 class="card-title">{{comrade.fullName}}</h5>
-          </div>
-        </div>
+    <div v-if="me.comrades.length > 0" class="card">
+      <div class="card-header">
+        <h3 class="card-title">Members of {{me.memberOf.name}}</h3>
+      </div>
+      <div class="card-body o-auto" style="height: 15rem">
+        <ul class="list-unstyled list-separated">
+          <li class="list-separated-item" :key="'comrade'+comrade.id" v-for="comrade in me.comrades">
+            <div class="row align-items-center">
+              <div class="col-auto">
+                <span class="avatar avatar-md d-block" style="background-image: url(demo/faces/female/12.jpg)"></span>
+              </div>
+              <div class="col">
+                <div>
+                  <a href="javascript:void(0)" class="text-inherit">{{comrade.fullName}}</a>
+                </div>
+                <small class="d-block item-except text-sm text-muted h-1x">email@example.com</small>
+              </div>
+              <div class="col-auto">
+                <div class="item-action dropdown">
+                  <a href="javascript:void(0)" data-toggle="dropdown" class="icon" aria-expanded="false"><i class="fe fe-more-vertical"></i></a>
+                  <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; transform: translate3d(15px, 20px, 0px); top: 0px; left: 0px; will-change: transform;">
+                    <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-tag"></i> Action </a>
+                    <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Another action </a>
+                    <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-message-square"></i> Something else here</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-link"></i> Separated link</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
 

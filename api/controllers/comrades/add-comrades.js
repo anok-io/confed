@@ -1,7 +1,7 @@
 module.exports = {
 
 
-  comradelyName: 'Add comrades',
+  friendlyName: 'Add comrades',
 
 
   description: 'Add one or more comrades.',
