@@ -2,6 +2,10 @@
 
 CONFED is a [Sails v1](https://sailsjs.com) application aimed to provide an organising platform for groups based on anarcho syndicalist principles of organising.
 
+**CONFED is very much in active development and there is a lot to be done to get the basics started. I very much value contributions and hope to kick start something. Please start a discussion on discourse.anok.io or just drop in for a chat on Gitter**
+
+[![Gitter](https://badges.gitter.im/anok-io/community.svg)](https://gitter.im/anok-io/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
 * [**Bootstrap 4**](http://getbootstrap.com/docs/4.0/getting-started/introduction/) - Front-end component library
 * [**Font Awesome 4**](http://fontawesome.io/icons/) - Icons
 * [**Vue.js**](https://vuejs.org/) - Front-end framework
@@ -17,6 +21,15 @@ Members are able to form groups by inviting other members, or starting their own
 A group is required to have at least 3 members before being able to form a local, a local can be joined by other groups in the same region, upon agreement by all groups in the local. This same methodology cascades 'up' as groups federate.
 
 Decisions that are raised at the local level by a group and the decisions of the local are taken back to the groups for ratification by the members.
+
+Currently working on:
+* A User can create one group, or be a part of one group. 
+* A User can invite others to the group they are part of, however a vote at the next meeting is required for the person to become a member.
+* A User can create a Meeting, or set the regularity of the schedule (by default monthly)
+* A User can submit an agenda item up to a week before the meeting 'due' date. All users are emailed on submit of an agenda item, and a full agenda sent out in email a week before the Due date.
+* A user can vote on agenda items YES, NO, ABSTAIN, and comment (optional).
+* Lack of a vote by the Due date for the meeting, is counted as ABSTAIN
+* If a Group is part of a Local they are able to submit the agenda items that are voted up by their members to the agenda of the next meetings for all groups in the Local. And likewise with the Local to the Regional, and so forth.
 
 **Groups** are affiliate of **Locals**
 
