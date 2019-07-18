@@ -15,7 +15,6 @@ module.exports.routes = {
   //  ╚╩╝╚═╝╚═╝╩  ╩ ╩╚═╝╚═╝╚═╝
   'GET /':                   { action: 'view-homepage-or-redirect' },
   'GET /welcome/:unused?':   { action: 'dashboard/view-welcome' },
-  'GET /comrades/:virtualPageSlug?':   { action: 'comrades/view-comrades' },
 
   'GET /faq':                { action:   'view-faq' },
   'GET /legal/terms':        { action:   'legal/view-terms' },
@@ -35,8 +34,11 @@ module.exports.routes = {
   'GET /account/profile':               { action: 'account/view-edit-profile' },
 
   'GET /group':                         { action: 'group/view-group' },
+  'GET /group/:virtualPageSlug?':       { action: 'group/view-group' },
 
-  'GET /claim-account':      { action: 'entrance/view-claim-account' },
+  'GET /comrades/:virtualPageSlug?':    { action: 'comrades/view-comrades' },
+
+  'GET /claim-account':                 { action: 'entrance/view-claim-account' },
 
 
 
@@ -71,7 +73,7 @@ module.exports.routes = {
   'POST  /api/v1/user/upload-avatar':                    { action: 'user/upload-avatar' },
   'GET   /api/v1/user/:id/avatar/':                      { action: 'user/get-avatar' },
 
-  'POST    /api/v1/group/add-my-group':                   { action: 'group/add-my-group' },
+  'POST    /api/v1/group/create-my-group':                { action: 'group/create-my-group' },
   'DELETE  /api/v1/group/destroy-my-group':               { action: 'group/destroy-my-group' },
 
   'DELETE  /api/v1/comrades/:id':                         { action: 'comrades/remove-comrade' },

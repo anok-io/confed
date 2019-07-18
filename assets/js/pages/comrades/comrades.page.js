@@ -108,7 +108,7 @@ parasails.registerPage('comrades', {
       var argins = _.cloneDeep(this.addComradesFormData);
 
       // Check whether there are any rows with a name but not an email.
-      var isValidEmailAddress = parasails.require('isValidEmailAddress');
+      var isValidEmailAddress = parasails.util.isValidEmailAddress;
       var hasAtLeastOneInvalidComrade = !_.isUndefined(_.find(argins.comrades, (comrade)=> {
         if((comrade.fullName !== '' || comrade.emailAddress !== '') && !isValidEmailAddress(comrade.emailAddress)) {
           return true;
@@ -141,7 +141,7 @@ parasails.registerPage('comrades', {
       console.log('invited comrades:',invitedComrades);
       // Add the new comrades to the requests list
       this.me.outboundComradeRequests = this.me.outboundComradeRequests.concat(invitedComrades);
-      this.$forceUpdate();
+      util
       this._clearAddComradesModal();
     },
 

@@ -1,97 +1,205 @@
 <div id="group" v-cloak>
   <div class="container">
-    <div class="page-header text-center">
-      <h1>{{me.memberOf.name || 'Groups'}}</h1>
-      <hr />
-      <h2>Organise your group</h2>
-      <div class="header-buttons">
-        <a class="btn btn-sm btn-outline-info create-group-button" href="/group/create" v-if="me.memberOf < 0">Create Group</a>
-        <a class="btn btn-sm btn-outline-info agenda-item-button" href="/agenda-item/create">Create Agenda Item</a>
-        <a class="btn btn-sm btn-outline-info delete-group-button" href="#" @click="clickDeleteGroup(me.memberOf.id)">Delete my Group</a>
+
+    <h1>{{memberOf ? memberOf.name : 'Group'}} Dashboard</h1>
+
+    <div class="row mb-4">
+      <div class="col">
+        <div class="btn-list">
+          <button class="btn btn-sm btn-outline-info create-group-button"
+                  v-if="!memberOf"
+                  @click="clickCreateGroup()">
+            <i class="fe fe-plus mr-1"></i>Create Group
+          </button>
+          <button class="btn btn-sm btn-outline-info agenda-item-button"
+                  v-if="memberOf">
+            <i class="fe fe-calendar mr-1"></i>Create Agenda Item
+          </button>
+          <button class="btn btn-sm btn-outline-info delete-group-button"
+                  v-if="memberOf"
+                  @click="clickDeleteGroup(memberOf.id)">
+            <i class="fe fe-x mr-1"></i>Delete my Group
+          </button>
+        </div>
       </div>
     </div>
-    <p />
 
-    <div v-if="me.comrades.length > 0" class="card">
-      <div class="card-header">
-        <h3 class="card-title">Members of {{me.memberOf.name}}</h3>
-      </div>
-      <div class="card-body o-auto" style="height: 15rem">
-        <ul class="list-unstyled list-separated">
-          <li class="list-separated-item" :key="'comrade'+comrade.id" v-for="comrade in me.comrades">
-            <div class="row align-items-center">
-              <div class="col-auto">
-                <span class="avatar avatar-md d-block" style="background-image: url(demo/faces/female/12.jpg)"></span>
-              </div>
-              <div class="col">
-                <div>
-                  <a href="javascript:void(0)" class="text-inherit">{{comrade.fullName}}</a>
-                </div>
-                <small class="d-block item-except text-sm text-muted h-1x">email@example.com</small>
-              </div>
-              <div class="col-auto">
-                <div class="item-action dropdown">
-                  <a href="javascript:void(0)" data-toggle="dropdown" class="icon" aria-expanded="false"><i class="fe fe-more-vertical"></i></a>
-                  <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; transform: translate3d(15px, 20px, 0px); top: 0px; left: 0px; will-change: transform;">
-                    <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-tag"></i> Action </a>
-                    <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Another action </a>
-                    <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-message-square"></i> Something else here</a>
-                    <div class="dropdown-divider"></div>
-                    <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-link"></i> Separated link</a>
+    <div class="row mb-4">
+      <div class="col">
+        <div v-if="memberOf" class="card">
+          <div class="card-header">
+            <h3 class="card-title">Comrades in {{memberOf.name}}</h3>
+          </div>
+          <div class="card-body o-auto" style="height: 15rem">
+            <ul class="list-unstyled list-separated">
+              <li class="list-separated-item" :key="'comrade'+comrade.id" v-for="comrade in me.comrades">
+                <div class="row align-items-center">
+                  <div class="col-auto">
+                    <span class="avatar avatar-md d-block"
+                          style="background-image: url(https://i.pravatar.cc/100)"></span>
+                  </div>
+                  <div class="col">
+                    <div>
+                      <a href="javascript:void(0)" class="text-inherit">{{comrade.fullName}}</a>
+                    </div>
+                    <small class="d-block item-except text-sm text-muted h-1x"><js-timestamp :at="me.lastSeenAt"></js-timestamp></small>
+                  </div>
+                  <div class="col-auto">
+                    <div class="item-action dropdown">
+                      <a href="javascript:void(0)" data-toggle="dropdown" class="icon" aria-expanded="false"><i
+                          class="fe fe-more-vertical"></i></a>
+                      <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end"
+                           style="position: absolute; transform: translate3d(15px, 20px, 0px); top: 0px; left: 0px; will-change: transform;">
+                        <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-tag"></i>
+                          Action </a>
+                        <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i>
+                          Another action </a>
+                        <a href="javascript:void(0)" class="dropdown-item"><i
+                            class="dropdown-icon fe fe-message-square"></i> Something else here</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-link"></i>
+                          Separated link</a>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <div v-if="allGroups">
-      <h2>Other groups</h2>
-      <div class="card-deck">
-        <div class="card" :key="'group'+group.id" v-for="group in allGroups">
-          <img class="card-img-top" src="https://placeimg.com/200/200/animals" :alt="group.name">
-          <div class="card-body">
-            <h5 class="card-title">{{group.name}}</h5>
-          </div>
-          <div class="card-footer">
-            <small class="text-muted">
-              <a href="#" class="card-link">View</a>
-              <a href="#" class="card-link">Contact</a>
-            </small>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
+
+      <div class="col">
+        <div v-if="local && local.members.length > 0" class="card">
+          <div class="card-header">
+            <h3 class="card-title">Groups in your Local</h3>
+          </div>
+          <div class="card-body o-auto" style="height: 15rem">
+            <ul class="list-unstyled list-separated">
+              <li class="list-separated-item" :key="'group'+group.id" v-for="group in local.members">
+                <div class="row align-items-center">
+                  <div class="col-auto">
+                    <span class="avatar avatar-lg d-block"
+                          style="background-image: url(http://lorempixel.com/100/100/people/)"></span>
+                  </div>
+                  <div class="col">
+                    <div>
+                      <a href="javascript:void(0)" class="text-inherit">{{group.name}}</a>
+                    </div>
+                    <small class="d-block item-except text-sm text-muted h-1x">{{group.emailAddress}}</small>
+                  </div>
+                  <div class="col-auto">
+                    <div class="item-action dropdown">
+                      <a href="javascript:void(0)" data-toggle="dropdown" class="icon" aria-expanded="false"><i
+                          class="fe fe-more-vertical"></i></a>
+                      <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end"
+                           style="position: absolute; transform: translate3d(15px, 20px, 0px); top: 0px; left: 0px; will-change: transform;">
+                        <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-eye"></i> View
+                        </a>
+                        <a href="javascript:void(0)" class="dropdown-item"><i
+                            class="dropdown-icon fe fe-message-square"></i> Message</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-database"></i>Local
+                          vote archives</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        TODO :
+      </div>
+
     </div>
   </div>
-  <%- /* "Confirm Delete Group" Modal */ %>
-<modal v-if="confirmDeleteGroupModalOpen" v-cloak @close="closeDeleteGroupModal()">
+  <%- /* "Create Group" Modal */ %>
+  <modal v-if="virtualPageSlug === 'new'" v-cloak key="new" v-cloak @close="closeCreateGroupModal()">
     <div class="modal-header">
-        <h5 class="modal-title">Delete your group?</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span>&times;</span>
-        </button>
+      <h5 class="modal-title">Create a group</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <ajax-form action="createMyGroup"
+               :syncing.sync="syncing"
+               :cloud-error.sync="cloudError"
+               :handle-parsing="handleParsingCreateGroupForm"
+               @submitted="submittedCreateGroupForm()">
+      <div class="modal-body">
+        <p>Create your group below and then invite comrades to it.</p>
+        <p>Just remember that when you create a group, you will not be able to join another. You can only be a member of
+          one group at a time.</p>
+        <p class="text-danger" v-if="cloudError">
+          <small>An error occured while processing your request. Please check your information and try again, or <a
+              href="/contact">contact support</a> if the error persists.
+          </small>
+        </p>
+        <p class="text-danger" v-if="formErrors">
+          <small>Please check that you have a name for your group and an email
+            address that is valid.
+          </small>
+        </p>
       </div>
-      <ajax-form action="destroyMyGroup"
-                 :syncing.sync="syncing"
-                 :cloud-error.sync="cloudError"
-                 :handle-parsing="handleParsingDeleteGroupForm"
-                 @submitted="submittedDeleteGroupForm()">
-        <div class="modal-body">
-          <p>This group will be deleted and all associated data lost forever. Discussions, agenda items, the lot.</p>
-          <p class="text-danger" v-if="cloudError"><small>An error occured while processing your request. Please check your information and try again, or <a href="/contact">contact support</a> if the error persists.</small></p>
-          <p class="text-danger" v-if="group.members.length > 1"><small>You cannot delete a group unless you are the only member. Please <a href="/contact">contact support</a> if this cannot be resolved.</small></p>
+      <div class="form-group">
+        <label class="form-label">Group Name</label>
+        <div class="input-icon">
+          <span class="input-icon-addon">
+            <i class="fe fe-users"></i>
+          </span>
+          <input type="text" class="form-control" v-model="createGroupFormData.name" placeholder="The Example Group">
         </div>
-        <div class="modal-footer">
-          <button data-dismiss="modal" class="btn btn-outline-secondary mr-1">Nevermind</button>
-          <ajax-button type="submit" class="btn btn-danger ml-1" :disabled="group.members.length > 1">Remove</ajax-button>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Groups Email Address</label>
+        <div class="input-icon">
+          <span class="input-icon-addon">
+            <i class="fe fe-mail"></i>
+          </span>
+          <input type="email" class="form-control" v-model="createGroupFormData.emailAddress"  placeholder="email@example.com">
         </div>
-      </ajax-form>
-</modal>
+      </div>
+      <div class="modal-footer">
+        <button data-dismiss="modal" class="btn btn-outline-secondary mr-1">Nevermind</button>
+        <ajax-button type="submit" :syncing="syncing" class="btn btn-danger ml-1">Create</ajax-button>
+      </div>
+    </ajax-form>
+  </modal>
+
+  <%- /* "Confirm Delete Group" Modal */ %>
+  <modal v-if="confirmDeleteGroupModalOpen" v-cloak @close="closeDeleteGroupModal()">
+    <div class="modal-header">
+      <h5 class="modal-title">Delete your group?</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <ajax-form action="destroyMyGroup"
+               :syncing.sync="syncing"
+               :cloud-error.sync="cloudError"
+               :handle-parsing="handleParsingDeleteGroupForm"
+               @submitted="submittedDeleteGroupForm($event)">
+      <div class="modal-body">
+        <p>This group will be deleted and all associated data lost forever. Discussions, agenda items, the lot.</p>
+        <p class="text-danger" v-if="cloudError">
+          <small>An error occured while processing your request. Please check your information and try again, or <a
+              href="/contact">contact support</a> if the error persists.
+          </small>
+        </p>
+        <p class="text-danger" v-if="me.comrades.length > 1">
+          <small>You cannot delete a group unless you are the only member. Please <a href="/contact">contact support</a>
+            if this cannot be resolved.
+          </small>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button data-dismiss="modal" class="btn btn-outline-secondary mr-1">Nevermind</button>
+        <ajax-button type="submit" class="btn btn-danger ml-1" :disabled="me.comrades.length > 1">Remove</ajax-button>
+      </div>
+    </ajax-form>
+  </modal>
+  <router-view></router-view>
 </div>
-
-
 
 
 <%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>

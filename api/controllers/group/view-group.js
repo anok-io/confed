@@ -18,11 +18,33 @@ module.exports = {
 
   fn: async function () {
     // TODO: Groups that are returned here should be other groups in the same local.
-    var allGroups = await Group.find();
-    if (!allGroups) {
-      allGroups = [{name: 'No groups yet exist'}];
+    // Note the memberOf.memberOf traverses up a level to the Local
+    try {
+      var group = await Group.findOne(this.req.me.memberOf.id);
+    } catch (err) {
+      return {
+        group: null,
+        local: null
+      };
     }
-    return {allGroups};
+
+    try {
+      var localID = this.req.me.memberOf.memberOf;
+
+      var localGroups = await Local.findOne(localID).populate('members');
+      if (!localGroups) {
+        localGroups = [{name: 'Your group is not a member of a Local'}];
+      }
+      return {
+        group: group,
+        local: localGroups
+      };
+    } catch (err) {
+      return {
+        group: group,
+        local: null
+      };
+    }
 
   }
 };

@@ -1,25 +1,28 @@
 module.exports = {
 
 
-  friendlyName: 'Add my group',
+  friendlyName: 'Create my group',
 
 
-  description: 'Add a group on the condition the user has no group.',
+  description: 'Create a group on the condition the user has no group.',
 
 
   inputs: {
+
     name: {
       type: 'string',
       description: 'The name of the group.',
       example: 'The Example Group',
       required: true
     },
+
     emailAddress: {
       type: 'string',
       description: 'The contact email address of the group.',
       example: 'group@example.com',
       required: false
     },
+
   },
 
 
@@ -32,7 +35,7 @@ module.exports = {
 
 
   fn: async function (inputs) {
-    sails.log('Controller add-my-group called.');
+    sails.log('Controller create-my-group called.');
     var name = inputs.name;
     var emailAddress = inputs.emailAddress.toLowerCase();
 
