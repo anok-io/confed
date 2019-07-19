@@ -28,6 +28,11 @@ module.exports = {
       example: 'group@example.com'
     },
 
+    initiative: {
+      type: 'boolean',
+      defaultsTo: true,
+    },
+
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
     //  ╚═╝╩ ╩╚═╝╚═╝═╩╝╚═╝
@@ -43,7 +48,7 @@ module.exports = {
     members: {
       collection: 'user',
       via: 'memberOf'
-    }
+    },
 
   },
 

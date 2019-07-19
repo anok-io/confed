@@ -11,8 +11,8 @@ module.exports = {
 
     choice: {
       type: 'string',
-      description: 'The choice of vote; Yes, No or Abstain',
-      required: true
+      isIn: ['yes', 'no', 'abstain'],
+      defaultsTo: 'abstain',
     },
 
     //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗

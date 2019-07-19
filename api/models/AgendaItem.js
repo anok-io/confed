@@ -21,6 +21,30 @@ module.exports = {
       required: true
     },
 
+    suggestedAction: {
+      type: 'string',
+      description: 'A description of the action that is being suggested',
+      required: true
+    },
+
+    owner: {
+      type: 'string',
+      description: 'The Member that submitted the agenda item',
+      required: true
+    },
+
+    decision: {
+      type: 'string',
+      isIn: ['yes', 'no', 'abstain'],
+      defaultsTo: 'abstain',
+    },
+
+    assembly: {
+      type: 'string',
+      isIn: ['group', 'local', 'regional', 'federation', 'confederation'],
+      required: true
+    },
+
     //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
     //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
     //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝

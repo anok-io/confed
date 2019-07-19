@@ -1,5 +1,5 @@
 /**
- * Meeting.js
+ * Comment.js
  *
  * @description :: A model definition represents a database table/collection.
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
@@ -8,22 +8,16 @@
 module.exports = {
 
   attributes: {
+
+    body: {
+      type: 'string',
+      required: true
+    },
+
     //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
     //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
     //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
 
-    date: {
-      type: 'number',
-      description: 'A JS timestamp (epoch ms) representing the day that the meeting is to be held, after which no votes on agenda items can be added.',
-      example: 1502844074211,
-      required: true
-    },
-
-    assembly: {
-      type: 'string',
-      isIn: ['group', 'local', 'regional', 'federation', 'confederation'],
-      required: true
-    },
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
@@ -34,16 +28,8 @@ module.exports = {
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
 
-    creator: {
-      model: 'user'
+    agendaitem: {
+      model: 'agendaitem'
     },
-
-    agenda: {
-      collection: 'agendaitem',
-      via: 'meeting'
-    },
-
   },
-
 };
-
