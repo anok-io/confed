@@ -47,7 +47,6 @@ parasails.registerPage('group', {
 
     // load the group if it exists
     this.memberOf = this.me.memberOf;
-
   },
   mounted: async function () {
     //…
@@ -119,10 +118,10 @@ parasails.registerPage('group', {
     },
 
     submittedDeleteGroupForm: function () {
-      this.memberOf = undefined;
-      this.$forceUpdate();
       this.confirmDeleteGroupModalOpen = false;
       this.selectedGroup = undefined;
+      this.memberOf = undefined;
+      this.$forceUpdate();
     }
   }
 });
