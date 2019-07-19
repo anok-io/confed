@@ -20,7 +20,9 @@ module.exports = {
     // TODO: Groups that are returned here should be other groups in the same local.
     // Note the memberOf.memberOf traverses up a level to the Local
     try {
-      var group = await Group.findOne(this.req.me.memberOf.id);
+      var group = await Group.findOne({
+        id: this.req.me.memberOf.id
+      });
     } catch (err) {
       return {
         group: null,
@@ -31,7 +33,10 @@ module.exports = {
     try {
       var localID = this.req.me.memberOf.memberOf;
 
-      var localGroups = await Local.findOne(localID).populate('members');
+      var localGroups = await Local.findOne({
+        id: localID
+      }).populate('members');
+
       if (!localGroups) {
         localGroups = [{name: 'Your group is not a member of a Local'}];
       }

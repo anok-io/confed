@@ -141,7 +141,7 @@ parasails.registerPage('comrades', {
       console.log('invited comrades:',invitedComrades);
       // Add the new comrades to the requests list
       this.me.outboundComradeRequests = this.me.outboundComradeRequests.concat(invitedComrades);
-      util
+      this.$forceUpdate();
       this._clearAddComradesModal();
     },
 
