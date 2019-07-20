@@ -1,0 +1,11 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.13.5
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:debug:20170905':
+    - sails-postgresql > machinepack-postgresql > debug:
+        patched: '2019-07-20T09:28:05.200Z'
+  'npm:ms:20170412':
+    - sails-postgresql > machinepack-postgresql > debug > ms:
+        patched: '2019-07-20T09:28:05.200Z'
