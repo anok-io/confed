@@ -20,12 +20,21 @@ services:
     command: /start-dev.sh
     depends_on:
       - postgres
+      - redis 
     environment:
       - POSTGRES_USER=test_project
       - USE_DOCKER=yes
+      - REDIS_HOST=redis 
     volumes:
       - .:/app
     ports:
       - "8000:8000"
     links:
       - postgres
+      - redis 
+
+  redis:
+    image: redis
+    ports:
+    - "6379:6379"
+    restart: always

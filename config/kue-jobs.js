@@ -19,7 +19,7 @@ module.exports.kueJobs = {
       (Instead, you might want to have a look at `config/env/production.js`.)
 
   ***************************************************************************/
-  redisUrl: 'redis://127.0.0.1:6379',
+  redisUrl: 'redis://redis:6379',
   enableApi: true,        // Will expose Job Status APi's on port 3000
 
 };
