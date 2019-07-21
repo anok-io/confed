@@ -56,6 +56,9 @@ parasails.registerPage('group', {
   //  ║║║║ ║ ║╣ ╠╦╝╠═╣║   ║ ║║ ║║║║╚═╗
   //  ╩╝╚╝ ╩ ╚═╝╩╚═╩ ╩╚═╝ ╩ ╩╚═╝╝╚╝╚═╝
   methods: {
+
+    // Create Group
+
     clickCreateGroup: function () {
       // Open the modal.
       this.goto('/group/new');
@@ -64,10 +67,7 @@ parasails.registerPage('group', {
     _clearCreateGroupModal: function () {
       this.goto('/group');
       // Reset form data.
-      this.createGroupFormData = {
-        name: '',
-        emailAddress: ''
-      };
+      this.formData = {};
       this.formErrors = {};
       this.cloudError = '';
     },
@@ -78,7 +78,7 @@ parasails.registerPage('group', {
 
     handleParsingCreateGroupForm: function () {
       this.formErrors = {};
-      var argins = this.createGroupFormData;
+      var argins = this.formData;
       // Check if there are any invalid fields.
       var isValidEmailAddress = parasails.util.isValidEmailAddress;
 
@@ -99,6 +99,53 @@ parasails.registerPage('group', {
     submittedCreateGroupForm: function () {
       this.closeCreateGroupModal();
     },
+
+    // Create Meeting
+
+    clickCreateMeeting: function () {
+      // Open the modal.
+      var date = new Date();
+      this.formData.date = new Date(date.getTime() - (date.getTimezoneOffset() * 60000))
+        .toISOString()
+        .split("T")[0];
+      this.goto('/group/newmeeting');
+    },
+
+    _clearCreateMeetingModal: function () {
+      this.goto('/group');
+      // Reset form data.
+      this.formData = {};
+      this.formErrors = {};
+      this.cloudError = '';
+    },
+
+    closeCreateMeetingModal: function () {
+      this._clearCreateMeetingModal();
+    },
+
+    handleParsingCreateMeetingForm: function () {
+      this.formErrors = {};
+      var argins = this.formData;
+      // Check if there are any invalid fields.
+
+      if (!argins.date) {
+        this.formErrors.date = true;
+      }
+      if (!argins.assembly) {
+        this.formErrors.assembly = true;
+      }
+
+      if (Object.keys(this.formErrors).length > 0) {
+        return;
+      }
+      return argins;
+    },
+
+    submittedCreateMeetingForm: function () {
+      this.closeCreateMeetingModal();
+    },
+
+    // Delete Group
 
     clickDeleteGroup: function (groupID) {
       this.confirmDeleteGroupModalOpen = true;

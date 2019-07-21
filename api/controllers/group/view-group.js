@@ -17,13 +17,13 @@ module.exports = {
 
 
   fn: async function () {
-    // TODO: Groups that are returned here should be other groups in the same local.
     // Note the memberOf.memberOf traverses up a level to the Local
     try {
       var group = await Group.findOne({
         id: this.req.me.memberOf.id
       });
     } catch (err) {
+      // If they have no group, they have no local either
       return {
         group: null,
         local: null
@@ -31,6 +31,7 @@ module.exports = {
     }
 
     try {
+      // the ID of the local
       var localID = this.req.me.memberOf.memberOf;
 
       var localGroups = await Local.findOne({

@@ -66,6 +66,11 @@ module.exports = {
     votes: {
       collection: 'vote',
       via: 'agendaitem'
+    },
+
+    comments: {
+      collection: 'comment',
+      via: 'agendaitem'
     }
 
   },

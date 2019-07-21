@@ -12,8 +12,9 @@
             <i class="fe fe-plus mr-1"></i>Create Group
           </button>
           <button class="btn btn-sm btn-outline-info agenda-item-button"
-                  v-if="memberOf">
-            <i class="fe fe-calendar mr-1"></i>Create Agenda Item
+                  v-if="memberOf"
+                  @click="clickCreateMeeting()">
+            <i class="fe fe-calendar mr-1"></i>Create Meeting
           </button>
           <button class="btn btn-sm btn-outline-info delete-group-button"
                   v-if="memberOf"
@@ -112,7 +113,47 @@
       </div>
 
       <div class="col">
-
+        <div v-if="memberOf" class="card">
+          <div class="card-header">
+            <h3 class="card-title">Comrades in {{memberOf.name}}</h3>
+          </div>
+          <div class="card-body o-auto" style="height: 15rem">
+            <ul class="list-unstyled list-separated">
+              <li class="list-separated-item" :key="'comrade'+comrade.id" v-for="comrade in me.comrades">
+                <div class="row align-items-center">
+                  <div class="col-auto">
+                    <span class="avatar avatar-md d-block"
+                          style="background-image: url(https://i.pravatar.cc/100)"></span>
+                  </div>
+                  <div class="col">
+                    <div>
+                      <a href="javascript:void(0)" class="text-inherit">{{comrade.fullName}}</a>
+                    </div>
+                    <small class="d-block item-except text-sm text-muted h-1x"><js-timestamp :at="me.lastSeenAt"></js-timestamp></small>
+                  </div>
+                  <div class="col-auto">
+                    <div class="item-action dropdown">
+                      <a href="javascript:void(0)" data-toggle="dropdown" class="icon" aria-expanded="false"><i
+                          class="fe fe-more-vertical"></i></a>
+                      <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end"
+                           style="position: absolute; transform: translate3d(15px, 20px, 0px); top: 0px; left: 0px; will-change: transform;">
+                        <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-tag"></i>
+                          Action </a>
+                        <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i>
+                          Another action </a>
+                        <a href="javascript:void(0)" class="dropdown-item"><i
+                            class="dropdown-icon fe fe-message-square"></i> Something else here</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-link"></i>
+                          Separated link</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -162,6 +203,62 @@
           <input type="email" class="form-control" v-model="createGroupFormData.emailAddress"  placeholder="email@example.com">
         </div>
       </div>
+      <div class="modal-footer">
+        <button data-dismiss="modal" class="btn btn-outline-secondary mr-1">Nevermind</button>
+        <ajax-button type="submit" :syncing="syncing" class="btn btn-danger ml-1">Create</ajax-button>
+      </div>
+    </ajax-form>
+  </modal>
+
+  <%- /* "Create Meeting" Modal */ %>
+  <modal v-if="virtualPageSlug === 'newmeeting'" v-cloak key="newmeeting" v-cloak @close="closeCreateMeetingModal()">
+    <div class="modal-header">
+      <h5 class="modal-title">Create a Meeting</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <ajax-form action="createMeeting"
+               :syncing.sync="syncing"
+               :cloud-error.sync="cloudError"
+               :handle-parsing="handleParsingCreateMeetingForm"
+               @submitted="submittedCreateMeetingForm()">
+      <div class="modal-body">
+        <p>Create a meeting below.</p>
+        <p>For meetings to be called for an assembly of groups, your existing membership must vote for it.</p>
+        <p class="text-danger" v-if="cloudError">
+          <small>An error occured while processing your request. Please check your information and try again, or <a
+              href="/contact">contact support</a> if the error persists.
+          </small>
+        </p>
+        <p class="text-danger" v-if="formErrors.date">
+          <small>Please check that you have entered a date that is valid.</small>
+        </p>
+        <p class="text-danger" v-if="formErrors.assembly">
+          <small>Please check that you have selected an assembly.</small>
+        </p>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Date</label>
+        <div class="input-icon">
+          <span class="input-icon-addon">
+            <i class="fe fe-calendar"></i>
+          </span>
+          <datepicker v-model="formData.date" :displayininternationalformat="true" :placeholder="'YYYY-MM-DD'"></datepicker>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="assembly">Assembly this meeting is for. Normally this will be for your group.</label>
+        <div>
+          <select id="assembly" v-model="formData.assembly" name="assembly" class="form-control">
+            <option value="group" selected>Group</option>
+            <option value="local">Local</option>
+            <option value="regional">Regional</option>
+            <option value="federation">Federation</option>
+            <option value="confederation">Confederation</option>
+          </select>
+        </div>
+      </div>
+
       <div class="modal-footer">
         <button data-dismiss="modal" class="btn btn-outline-secondary mr-1">Nevermind</button>
         <ajax-button type="submit" :syncing="syncing" class="btn btn-danger ml-1">Create</ajax-button>

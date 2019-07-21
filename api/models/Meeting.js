@@ -21,6 +21,7 @@ module.exports = {
 
     assembly: {
       type: 'string',
+      description: 'The assembly where this meeting is to be held.',
       isIn: ['group', 'local', 'regional', 'federation', 'confederation'],
       required: true
     },

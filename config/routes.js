@@ -76,6 +76,9 @@ module.exports.routes = {
   'POST    /api/v1/group/create-my-group':                { action: 'group/create-my-group' },
   'DELETE  /api/v1/group/destroy-my-group':               { action: 'group/destroy-my-group' },
 
+  'POST    /api/v1/group/create-meeting':                { action: 'group/create-meeting' },
+  'DELETE  /api/v1/group/destroy-meeting':               { action: 'group/destroy-meeting' },
+
   'DELETE  /api/v1/comrades/:id':                         { action: 'comrades/remove-comrade' },
   'POST    /api/v1/comrades':                             { action: 'comrades/add-comrades' },
   'PUT     /api/v1/approve-comrade':                      { action: 'comrades/approve-comrade' },
