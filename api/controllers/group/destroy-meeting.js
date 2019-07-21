@@ -26,14 +26,14 @@ module.exports = {
   fn: async function (inputs) {
     var meeting = await Meeting.findOne({
       id: inputs.id
-    }).populate('creator');
-    if (this.req.me.id !== meeting.creator || meeting.agendaitems > 1 ) {
+    }).populate('creator')
+      .populate('agenda');
+
+    if (this.req.me.id !== meeting.creator.id || meeting.agenda > 1 ) {
       throw 'forbidden';
     }
-    // only allow destruction of a meeting if there are no agenda items
-    if (this.req.me.id === meeting.creator && meeting.agendaitems < 1) {
-      await Meeting.destroy({id:inputs.id});
-    }
+
+    await Meeting.destroy({id:inputs.id});
     return {};
   }
 

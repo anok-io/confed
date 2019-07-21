@@ -17,40 +17,33 @@ module.exports = {
 
 
   fn: async function () {
-    // Note the memberOf.memberOf traverses up a level to the Local
-    try {
-      var group = await Group.findOne({
-        id: this.req.me.memberOf.id
-      });
-    } catch (err) {
-      // If they have no group, they have no local either
-      return {
-        group: null,
-        local: null
-      };
-    }
+    var group = await Group.findOne({
+      id: this.req.me.group
+    }).populate('members');
 
-    try {
-      // the ID of the local
-      var localID = this.req.me.memberOf.memberOf;
+    // the ID of the local
+    var localGroups = await Local.findOne({
+      id: group.local
+    }).populate('groups');
 
-      var localGroups = await Local.findOne({
-        id: localID
-      }).populate('members');
+    var meetings = await Meeting.find({
+      or: [
+        // Comrades meetings:
+        { creator: { 'in': _.pluck(this.req.me.comrades, 'id') } },
+        // My meetings:
+        { creator: this.req.me.id }
+      ],
+      assembly: 'group'
+    }).populate('agenda');
 
-      if (!localGroups) {
-        localGroups = [{name: 'Your group is not a member of a Local'}];
-      }
-      return {
-        group: group,
-        local: localGroups
-      };
-    } catch (err) {
-      return {
-        group: group,
-        local: null
-      };
-    }
+    if (!group) {group = undefined;}
+    if (!localGroups) {localGroups = undefined;}
+    if (!meetings) {localGroups = undefined;}
 
+    return {
+      group: group,
+      local: localGroups,
+      meetings: meetings
+    };
   }
 };

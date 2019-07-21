@@ -6,7 +6,9 @@ parasails.registerPage('group', {
 
     virtualPageSlug: '',
 
-    memberOf: undefined,
+    group: {},
+
+    local: {},
 
     createGroupFormData: {
       name: '',
@@ -32,6 +34,10 @@ parasails.registerPage('group', {
 
     confirmDeleteGroupModalOpen: false,
 
+    selectedMeeting: undefined,
+
+    confirmDeleteMeetingModalOpen: false,
+
   },
 
   virtualPages: true,
@@ -44,9 +50,6 @@ parasails.registerPage('group', {
   beforeMount: function () {
     // Attach any initial data from the server.
     _.extend(this, SAILS_LOCALS);
-
-    // load the group if it exists
-    this.memberOf = this.me.memberOf;
   },
   mounted: async function () {
     //…
@@ -145,6 +148,31 @@ parasails.registerPage('group', {
       this.closeCreateMeetingModal();
     },
 
+    // Delete Meeting
+
+    clickDeleteMeeting: function (meetingID) {
+      this.confirmDeleteMeetingModalOpen = true;
+      this.selectedMeeting = meetingID;
+
+    },
+
+    closeDeleteMeetingModal: function () {
+      this.selectedMeeting = undefined;
+      this.confirmDeleteMeetingModalOpen = false;
+    },
+
+    handleParsingDeleteMeetingForm: function () {
+      return {
+        id: this.selectedMeeting
+      };
+    },
+
+    submittedDeleteMeetingForm: function () {
+      this.confirmDeleteMeetingModalOpen = false;
+      this.selectedGroup = undefined;
+      this.$forceUpdate();
+    },
+
     // Delete Group
 
     clickDeleteGroup: function (groupID) {
@@ -167,7 +195,6 @@ parasails.registerPage('group', {
     submittedDeleteGroupForm: function () {
       this.confirmDeleteGroupModalOpen = false;
       this.selectedGroup = undefined;
-      this.memberOf = undefined;
       this.$forceUpdate();
     }
   }

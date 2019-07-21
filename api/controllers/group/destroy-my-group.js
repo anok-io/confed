@@ -27,11 +27,11 @@ module.exports = {
     var group = await Group.findOne({
       id: inputs.id
     }).populate('members');
-    if (this.req.me.memberOf.id !== group.id || group.members.length > 1 ) {
+    if (this.req.me.group.id !== group.id || group.members.length > 1 ) {
       throw 'forbidden';
     }
     // only allow destruction of a group if the user is the only member
-    if (this.req.me.memberOf.id === group.id && group.members.length < 2) {
+    if (this.req.me.group.id === group.id && group.members.length < 2) {
       await Group.destroy({id:inputs.id});
     }
     return {};

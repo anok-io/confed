@@ -167,7 +167,6 @@ will be disabled and/or hidden in the UI.
               id: req.session.userId
             })
               .populate('comrades')
-              .populate('memberOf')
               .populate('inboundComradeRequests')
               .populate('outboundComradeRequests');
 

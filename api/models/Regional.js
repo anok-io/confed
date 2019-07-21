@@ -35,14 +35,27 @@ module.exports = {
     //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
-    memberOf: {
+
+    groups: {
+      collection: 'group',
+      via: 'regional'
+    },
+
+    locals: {
+      collection: 'local',
+      via: 'regional'
+    },
+
+    federation: {
       model: 'federation',
     },
 
-    members: {
-      collection: 'local',
-      via: 'memberOf'
-    }
+    confederation: {
+      model: 'confederation',
+    },
+
+
+
 
   },
 

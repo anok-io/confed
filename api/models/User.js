@@ -175,10 +175,22 @@ without necessarily having a billing card.`
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
     // n/a
-    memberOf: {
+
+    group: {
       model: 'group',
     },
-
+    local: {
+      model: 'local',
+    },
+    regional: {
+      model: 'regional',
+    },
+    federation: {
+      model: 'federation',
+    },
+    confederation: {
+      model: 'confederation',
+    },
     comrades: { collection: 'User', description: 'All of the other users this user can organise with.' },
 
     outboundComradeRequests: { collection: 'User', via: 'inboundComradeRequests', description: 'The comrade requests this user has sent.' },
