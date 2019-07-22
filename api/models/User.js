@@ -166,6 +166,15 @@ without necessarily having a billing card.`
       description: 'required if "avatarFd" provided'
     },
 
+    username: {
+      type: 'string',
+      required: false,
+      description: 'A custom users profile url if added',
+      maxLength: 50,
+      minLength: 4,
+      unique: true,
+    },
+
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
     //  ╚═╝╩ ╩╚═╝╚═╝═╩╝╚═╝

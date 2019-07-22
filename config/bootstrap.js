@@ -18,7 +18,7 @@ module.exports.bootstrap = async function() {
   sails.moment = require('moment');
 
   // This bootstrap version indicates what version of fake data we're dealing with here.
-  var HARD_CODED_DATA_VERSION = 5;
+  var HARD_CODED_DATA_VERSION = 7;
 
   // This path indicates where to store/look for the JSON file that tracks the "last run bootstrap info"
   // locally on this development computer (if we happen to be on a development computer).
@@ -66,86 +66,100 @@ module.exports.bootstrap = async function() {
     emailAddress: 'admin@example.com',
     fullName: 'Anarcho Syn',
     isSuperAdmin: true,
-    password: await sails.helpers.passwords.hashPassword('abc123')
+    username: await 'anarcho-syn',
+    password: await sails.helpers.passwords.hashPassword('abc123'),
   }).fetch();
 
   var axxs = await User.create({
     emailAddress: 'axxs@example.com',
-    fullName: 'Dave Error',
+    fullName: 'Axxs',
     isSuperAdmin: true,
-    password: await sails.helpers.passwords.hashPassword('abc123')
+    username: 'axxs',
+    password: await sails.helpers.passwords.hashPassword('abc123'),
   }).fetch();
 
   var blackCat = await User.create({
     emailAddress: 'blackcat@example.com',
     fullName: 'Black Cat',
+    username: 'black-cat',
     password: await sails.helpers.passwords.hashPassword('abc123'),
   }).fetch();
 
   var nando = await User.create({
     emailAddress: 'nando@example.com',
     fullName: 'Nando',
+    username: 'nando',
     password: await sails.helpers.passwords.hashPassword('abc123'),
   }).fetch();
 
   var dee = await User.create({
     emailAddress: 'dee@example.com',
-    fullName: 'Dee',
+    fullName: 'Deanna',
+    username: 'deanna',
     password: await sails.helpers.passwords.hashPassword('abc123'),
   }).fetch();
 
   var rudolphRocker = await User.create({
     emailAddress: 'rocker@example.com',
     fullName: 'Rudolph Rocker',
+    username: 'rudolph-rocker',
     password: await sails.helpers.passwords.hashPassword('abc123'),
   }).fetch();
 
   var testUser1 = await User.create({
     emailAddress: 'testuser1@example.com',
     fullName: 'NME User 1',
-    password: await sails.helpers.passwords.hashPassword('abc123')
+    username: 'nme-user-1',
+    password: await sails.helpers.passwords.hashPassword('abc123'),
   }).fetch();
 
   var testUser2 = await User.create({
     emailAddress: 'testuser2@example.com',
     fullName: 'NME User 2',
-    password: await sails.helpers.passwords.hashPassword('abc123')
+    username: 'nme-user-2',
+    password: await sails.helpers.passwords.hashPassword('abc123'),
   }).fetch();
 
   var testUser3 = await User.create({
     emailAddress: 'testuser3@example.com',
     fullName: 'NME User 3',
-    password: await sails.helpers.passwords.hashPassword('abc123')
+    username: 'nme-user-3',
+    password: await sails.helpers.passwords.hashPassword('abc123'),
   }).fetch();
 
   var testUser4 = await User.create({
     emailAddress: 'testuser4@example.com',
     fullName: 'NME User 4',
-    password: await sails.helpers.passwords.hashPassword('abc123')
+    username: 'nme-user-4',
+    password: await sails.helpers.passwords.hashPassword('abc123'),
   }).fetch();
 
   var testUser5 = await User.create({
     emailAddress: 'testuser5@example.com',
     fullName: 'Geelong User 5',
-    password: await sails.helpers.passwords.hashPassword('abc123')
+    username: 'geelong-user-5',
+    password: await sails.helpers.passwords.hashPassword('abc123'),
   }).fetch();
 
   var testUser6 = await User.create({
     emailAddress: 'testuser6@example.com',
     fullName: 'Geelong User 6',
-    password: await sails.helpers.passwords.hashPassword('abc123')
+    username: 'geelong-user-6',
+    password: await sails.helpers.passwords.hashPassword('abc123'),
   }).fetch();
 
   var testUser7 = await User.create({
     emailAddress: 'testuser7@example.com',
     fullName: 'Geelong User 7',
-    password: await sails.helpers.passwords.hashPassword('abc123')
+    username: 'geelong-user-7',
+    password: await sails.helpers.passwords.hashPassword('abc123'),
   }).fetch();
 
   var testUser8 = await User.create({
     emailAddress: 'testuser8@example.com',
     fullName: 'Geelong User 8',
-    password: await sails.helpers.passwords.hashPassword('abc123')
+    username: 'geelong-user-8',
+    password: await sails.helpers.passwords.hashPassword('abc123'),
   }).fetch();
 
   // Add some initial comrades in the system

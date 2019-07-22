@@ -13,6 +13,10 @@ module.exports = {
       type: 'string'
     },
 
+    username: {
+      type: 'string'
+    },
+
     emailAddress: {
       type: 'string'
     },
@@ -21,6 +25,11 @@ module.exports = {
 
 
   exits: {
+
+    usernameAlreadyInUse: {
+      statusCode: 409,
+      description: 'The provided username is already in use.',
+    },
 
     emailAlreadyInUse: {
       statusCode: 409,
@@ -71,12 +80,27 @@ module.exports = {
       }
     }
 
+    var newUsername = await sails.helper.slugify(inputs.username);
+
+    // check that the username is not already in use
+    let conflictingUserName = await User.findOne({
+      username: newUsername
+    });
+    if (conflictingUserName) {
+      throw 'usernameAlreadyInUse';
+    }
+
 
     // Start building the values to set in the db.
     // (We always set the fullName if provided.)
     var valuesToSet = {
       fullName: inputs.fullName,
     };
+
+    _.extend(valuesToSet, {
+      username: newUsername
+    });
+
 
     switch (desiredEmailEffect) {
 

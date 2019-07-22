@@ -11,6 +11,14 @@
             <div class="invalid-feedback" v-if="formErrors.fullName">Please enter your full name.</div>
           </div>
         </div>
+        <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input class="form-control" id="username" name="username" type="text"  :class="[formErrors.username ? 'is-invalid' : '']" v-model.trim="formData.username" placeholder="This will also be your profile URL" autocomplete="name" focus-first>
+            <div class="invalid-feedback" v-if="formErrors.username">Your username creates your profile URL. It must be unique.</div>
+          </div>
+        </div>
         <div class="col-sm-6">
           <div class="form-group">
             <label for="email-address">Email address</label>

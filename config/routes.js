@@ -33,12 +33,14 @@ module.exports.routes = {
   'GET /account/password':              { action: 'account/view-edit-password' },
   'GET /account/profile':               { action: 'account/view-edit-profile' },
 
+
   'GET /group':                         { action: 'group/view-group' },
   'GET /group/:virtualPageSlug?':       { action: 'group/view-group' },
 
   'GET /comrades/:virtualPageSlug?':    { action: 'comrades/view-comrades' },
 
   'GET /claim-account':                 { action: 'entrance/view-claim-account' },
+
 
 
 
@@ -82,4 +84,13 @@ module.exports.routes = {
   'DELETE  /api/v1/comrades/:id':                         { action: 'comrades/remove-comrade' },
   'POST    /api/v1/comrades':                             { action: 'comrades/add-comrades' },
   'PUT     /api/v1/approve-comrade':                      { action: 'comrades/approve-comrade' },
+  
+  //  ╔═╗╔═╗╔╗╔╔═╗╔═╗╔╦╗  ╔═╗╦ ╦╔═╗╔╦╗╔═╗╔╦╗
+  //  ║  ║ ║║║║╠╣ ║╣  ║║  ║  ║ ║╚═╗ ║ ║ ║║║║
+  //  ╚═╝╚═╝╝╚╝╚  ╚═╝═╩╝  ╚═╝╚═╝╚═╝ ╩ ╚═╝╩ ╩
+  //
+  // Required to be at the bottom to not overwrite other routes
+
+  'GET /:username':                  { action: 'account/view-profile', skipAssets: true },
+
 };
