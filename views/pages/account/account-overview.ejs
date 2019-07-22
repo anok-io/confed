@@ -18,6 +18,10 @@
       <div class="col"><strong>{{me.fullName}}</strong></div>
     </div>
     <div class="row">
+      <div class="col-3">Username URL:</div>
+      <div class="col"><strong><a href="<%= req.baseUrl+'/'+me.username %>"><%= req.baseUrl+'/'+me.username %></a></strong></div>
+    </div>
+    <div class="row">
       <div class="col-3">Email:</div>
       <div class="col">
         <strong :class="[me.emailStatus === 'unconfirmed' || me.emailStatus === 'change-requested' ? 'text-muted' : '']">{{me.emailChangeCandidate ? me.emailChangeCandidate : me.emailAddress}}</strong>

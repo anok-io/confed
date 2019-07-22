@@ -1,7 +1,36 @@
 <div id="profile" v-cloak>
+  <div class="container">
+    <div class="row mt-3">
+      <div class="col-lg-4">
+        <div class="card card-profile">
+          <div class="card-header" style="background-image: url(https://placeimg.com/500/333/any);"></div>
+          <div class="card-body text-center">
+            <img class="card-profile-img" src="/api/v1/user/1/avatar">
+            <h3 class="mb-3">{{user.fullName}}</h3>
+            <p class="mb-4">
+              Anarcho Syndicalist Militant.
+            </p>
+            <ul class="social-links list-inline mb-0 mt-2">
+              <li class="list-inline-item">
+                <a href="javascript:void(0)" title="" data-toggle="tooltip" data-original-title="Facebook"><i class="fa fa-facebook"></i></a>
+              </li>
+              <li class="list-inline-item">
+                <a href="javascript:void(0)" title="" data-toggle="tooltip" data-original-title="Twitter"><i class="fa fa-twitter"></i></a>
+              </li>
+              <li class="list-inline-item">
+                <a href="javascript:void(0)" title="" data-toggle="tooltip" data-original-title="1234567890"><i class="fa fa-phone"></i></a>
+              </li>
+              <li class="list-inline-item">
+                <a href="javascript:void(0)" title="" data-toggle="tooltip" data-original-title="@skypename"><i class="fa fa-skype"></i></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
 
-  <h1>TODO: Implement this page.</h1>
-  <p>(See also <em>assets/styles/pages/account/profile.less</em>, <em>assets/js/pages/account/profile.page.js</em>, and <em>api/controllers/account/view-profile.js</em>.)</p>
 
+
+    </div>
+  </div>
 </div>
 <%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>

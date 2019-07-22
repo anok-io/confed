@@ -40,7 +40,7 @@
                   </div>
                   <div class="col">
                     <div>
-                      <a href="javascript:void(0)" class="text-inherit">{{comrade.fullName}}</a>
+                      <a :href="'/'+comrade.username" class="text-inherit">{{comrade.fullName}}</a>
                     </div>
                     <small class="d-block item-except text-sm text-muted h-1x"><js-timestamp :at="comrade.lastSeenAt"></js-timestamp></small>
                   </div>

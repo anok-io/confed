@@ -6,6 +6,11 @@ module.exports = {
 
   description: 'Display "Profile" page.',
 
+  inputs: {
+    username: {
+      type: 'string'
+    }
+  },
 
   exits: {
 
@@ -16,10 +21,11 @@ module.exports = {
   },
 
 
-  fn: async function () {
-
-    // Respond with view.
-    return {};
+  fn: async function (inputs) {
+    var user = await User.findOne({
+      username: inputs.username
+    });
+    return {user};
 
   }
 
