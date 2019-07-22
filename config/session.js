@@ -20,6 +20,13 @@ module.exports.session = {
   ***************************************************************************/
   secret: 'e100ecf96fcd836666abcfc3d52dac93',
 
+  adapter: 'redis',
+  host: 'redis',
+  port: 6379,
+  // ttl: <redis session TTL in seconds>,
+  db: 1,
+  // pass: <redis auth password>,
+  // prefix: 'sess:',
 
   /***************************************************************************
   *                                                                          *
