@@ -22,9 +22,13 @@ module.exports = {
     }).populate('members');
 
     // the ID of the local
-    var localGroups = await Local.findOne({
-      id: group.local
-    }).populate('groups');
+    if (group && group.local) {
+      var localGroups = await Local.findOne({
+        id: group.local
+      }).populate('groups');
+    } else {
+      var localGroups = undefined;
+    }
 
     var meetings = await Meeting.find({
       or: [

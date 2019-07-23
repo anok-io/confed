@@ -15,8 +15,10 @@ parasails.registerPage('group', {
       emailAddress: ''
     },
 
-    // Form data
-    formData: { /* … */ },
+    createMeetingformData: {
+      date: '',
+      assembly: ''
+    },
 
     // validation Errors
     formErrors: {},
@@ -70,7 +72,7 @@ parasails.registerPage('group', {
     _clearCreateGroupModal: function () {
       this.goto('/group');
       // Reset form data.
-      this.formData = {};
+      this.createGroupformData = {};
       this.formErrors = {};
       this.cloudError = '';
     },
@@ -81,7 +83,7 @@ parasails.registerPage('group', {
 
     handleParsingCreateGroupForm: function () {
       this.formErrors = {};
-      var argins = this.formData;
+      var argins = this.createGroupFormData;
       // Check if there are any invalid fields.
       var isValidEmailAddress = parasails.util.isValidEmailAddress;
 
@@ -99,7 +101,10 @@ parasails.registerPage('group', {
       return argins;
     },
 
-    submittedCreateGroupForm: function () {
+    submittedCreateGroupForm: function (data) {
+      console.log(data);
+      this.group = data.group;
+      this.$forceUpdate();
       this.closeCreateGroupModal();
     },
 
@@ -108,7 +113,7 @@ parasails.registerPage('group', {
     clickCreateMeeting: function () {
       // Open the modal.
       var date = new Date();
-      this.formData.date = new Date(date.getTime() - (date.getTimezoneOffset() * 60000))
+      this.createMeetingformData.date = new Date(date.getTime() - (date.getTimezoneOffset() * 60000))
         .toISOString()
         .split("T")[0];
       this.goto('/group/newmeeting');
@@ -117,7 +122,7 @@ parasails.registerPage('group', {
     _clearCreateMeetingModal: function () {
       this.goto('/group');
       // Reset form data.
-      this.formData = {};
+      this.createMeetingformData = {};
       this.formErrors = {};
       this.cloudError = '';
     },
@@ -128,7 +133,7 @@ parasails.registerPage('group', {
 
     handleParsingCreateMeetingForm: function () {
       this.formErrors = {};
-      var argins = this.formData;
+      var argins = this.createMeetingformData;
       // Check if there are any invalid fields.
 
       if (!argins.date) {
@@ -195,6 +200,7 @@ parasails.registerPage('group', {
     submittedDeleteGroupForm: function () {
       this.confirmDeleteGroupModalOpen = false;
       this.selectedGroup = undefined;
+      this.group = {};
       this.$forceUpdate();
     }
   }

@@ -1,23 +1,23 @@
 <div id="group" v-cloak>
   <div class="container">
 
-    <h1><a href="/group">{{group ? group.name : 'Group'}} Dashboard</a></h1>
+    <h1><a href="/group">{{ group.name || 'Group'}} Dashboard</a></h1>
 
     <div class="row mb-4">
       <div class="col">
         <div class="btn-list">
           <button class="btn btn-sm btn-outline-info create-group-button"
-                  v-if="!group"
+                  v-if="!group.id"
                   @click="clickCreateGroup()">
             <i class="fe fe-plus mr-1"></i>Create Group
           </button>
           <button class="btn btn-sm btn-outline-info agenda-item-button"
-                  v-if="group"
+                  v-if="group.id"
                   @click="clickCreateMeeting()">
             <i class="fe fe-calendar mr-1"></i>Create Meeting
           </button>
           <button class="btn btn-sm btn-outline-info delete-group-button"
-                  v-if="group"
+                  v-if="group.id"
                   @click="clickDeleteGroup(group.id)">
             <i class="fe fe-x mr-1"></i>Delete my Group
           </button>
@@ -27,11 +27,11 @@
 
     <div class="row mb-4">
       <div class="col">
-        <div v-if="group" class="card">
+        <div class="card">
           <div class="card-header">
-            <h3 class="card-title">Comrades in {{group.name}}</h3>
+            <h3 class="card-title">{{group.name}} Comrades</h3>
           </div>
-          <div class="card-body o-auto" style="height: 15rem">
+          <div class="card-body o-auto" style="height: 25rem">
             <ul class="list-unstyled list-separated">
               <li class="list-separated-item" :key="'comrade'+comrade.id" v-for="comrade in me.comrades">
                 <div class="row align-items-center">
@@ -50,15 +50,10 @@
                           class="fe fe-more-vertical"></i></a>
                       <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end"
                            style="position: absolute; transform: translate3d(15px, 20px, 0px); top: 0px; left: 0px; will-change: transform;">
-                        <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-tag"></i>
-                          Action </a>
-                        <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i>
-                          Another action </a>
-                        <a href="javascript:void(0)" class="dropdown-item"><i
-                            class="dropdown-icon fe fe-message-square"></i> Something else here</a>
-                        <div class="dropdown-divider"></div>
-                        <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-link"></i>
-                          Separated link</a>
+                        <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-message-square"></i>
+                          Message </a>
+                        <a href="'/'+comrade.username" class="dropdown-item"><i class="dropdown-icon fe fe-fe-link"></i>
+                          View </a>
                       </div>
                     </div>
                   </div>
@@ -70,12 +65,12 @@
       </div>
 
       <div class="col">
-        <div v-if="local && local.groups" class="card">
+        <div class="card">
           <div class="card-header">
             <h3 class="card-title">Groups in your Local</h3>
           </div>
-          <div class="card-body o-auto" style="height: 15rem">
-            <ul class="list-unstyled list-separated">
+          <div class="card-body o-auto" style="height: 25rem">
+            <ul v-if="local && local.groups" class="list-unstyled list-separated">
               <li class="list-separated-item" :key="'group'+group.id" v-for="group in local.groups">
                 <div class="row align-items-center">
                   <div class="col-auto">
@@ -99,8 +94,7 @@
                         <a href="javascript:void(0)" class="dropdown-item"><i
                             class="dropdown-icon fe fe-message-square"></i> Message</a>
                         <div class="dropdown-divider"></div>
-                        <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-database"></i>Local
-                          vote archives</a>
+                        <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-database"></i>Meeting Archives</a>
                       </div>
                     </div>
                   </div>
@@ -112,12 +106,12 @@
       </div>
 
       <div class="col">
-        <div v-if="meetings" class="card">
+        <div class="card">
           <div class="card-header">
-            <h3 class="card-title">Meetings of {{group.name}}</h3>
+            <h3 class="card-title">{{group.name}} Meetings</h3>
           </div>
-          <div class="card-body o-auto" style="height: 15rem">
-            <ul class="list-unstyled list-separated">
+          <div class="card-body o-auto" style="height: 25rem">
+            <ul v-if="meetings.length > 0" class="list-unstyled list-separated">
               <li class="list-separated-item" :key="'meetings'+meeting.id" v-for="meeting in meetings">
                 <div class="row align-items-center">
                   <div class="col-auto">
@@ -169,22 +163,24 @@
                :syncing.sync="syncing"
                :cloud-error.sync="cloudError"
                :handle-parsing="handleParsingCreateGroupForm"
-               @submitted="submittedCreateGroupForm()">
+               @submitted="submittedCreateGroupForm($event)">
       <div class="modal-body">
         <p>Create your group below and then invite comrades to it.</p>
         <p>Just remember that when you create a group, you will not be able to join another. You can only be a member of
           one group at a time.</p>
-        <p class="text-danger" v-if="cloudError">
-          <small>An error occured while processing your request. Please check your information and try again, or <a
+        <div class="alert alert-icon alert-danger" role="alert" v-if="cloudError">
+          <i class="fe fe-alert-triangle mr-2" aria-hidden="true"></i> 
+            An error occured while processing your request. Please check your information and try again, or <a
               href="/contact">contact support</a> if the error persists.
-          </small>
-        </p>
-        <p class="text-danger" v-if="formErrors.name">
-          <small>Please check that you have a name for your group.</small>
-        </p>
-        <p class="text-danger" v-if="formErrors.emailAddress">
-          <small>Please check that you have an email address that is valid.</small>
-        </p>
+        </div>
+        <div class="alert alert-icon alert-danger" role="alert" v-if="formErrors.name">
+          <i class="fe fe-alert-triangle mr-2" aria-hidden="true"></i> 
+            Please check that you have a name for your group.
+        </div>
+        <div class="alert alert-icon alert-danger" role="alert" v-if="formErrors.emailAddress">
+          <i class="fe fe-alert-triangle mr-2" aria-hidden="true"></i> 
+            Please check that you have an email address that is valid.
+        </div>
       </div>
       <div class="form-group">
         <label class="form-label">Group Name</label>
@@ -243,14 +239,14 @@
           <span class="input-icon-addon">
             <i class="fe fe-calendar"></i>
           </span>
-          <datepicker v-model="formData.date" :displayininternationalformat="true" :placeholder="'YYYY-MM-DD'"></datepicker>
+          <datepicker v-model="createMeetingformData.date" :displayininternationalformat="true" :placeholder="'YYYY-MM-DD'"></datepicker>
         </div>
       </div>
 
       <div class="form-group">
         <label for="assembly">Assembly this meeting is for. Normally this will be for your group.</label>
         <div>
-          <select id="assembly" v-model="formData.assembly" name="assembly" class="form-control">
+          <select id="assembly" v-model="createMeetingformData.assembly" name="assembly" class="form-control">
             <option value="group" selected>Group</option>
             <option value="local">Local</option>
             <option value="regional">Regional</option>

@@ -34,7 +34,7 @@ module.exports = {
   },
 
 
-  fn: async function (inputs) {
+  fn: async function (inputs, exits) {
     sails.log('Controller create-my-group called.');
     var name = inputs.name;
     var emailAddress = inputs.emailAddress.toLowerCase();
@@ -46,9 +46,8 @@ module.exports = {
     }).fetch();
     // add the creating user to the group
     await Group.addToCollection(newGroup.id, 'members', this.req.me.id);
-    return {
-      id: newGroup.id
-    };
+    this.group = newGroup;
+    return exits.success({ group: newGroup });
   }
 
 
