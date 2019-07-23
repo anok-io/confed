@@ -1,58 +1,61 @@
 <div id="comrades" v-cloak>
   <div class="container">
-    <div class="page-header text-center">
+
       <h1>Comrades</h1>
       <h2>View and add people to organise with.</h2>
-      <div class="header-buttons">
-        <button class="btn btn-outline-primary" @click="clickInviteButton()">Invite comrades</button>
+    <div class="row mb-4">
+      <button class="btn btn-outline-primary" @click="clickInviteButton()">Invite comrades</button>
+    </div>
+    <div class="row mb-4">
+      <div class="comrades-list" v-if="me.comrades.length > 0">
+        <h5 class="text-muted">My comrades</h5>
+        <table class="table table-striped">
+          <thead>
+          <th>Name</th>
+          <th class="d-none d-md-table-cell">Email</th>
+          <th class="actions-column"></th>
+          </thead>
+          <tbody>
+          <tr v-for="comrade in me.comrades">
+            <td><strong>{{comrade.fullName}}</strong></td>
+            <td class="d-none d-md-table-cell">{{comrade.emailAddress}}</td>
+            <td class="actions-column">
+              <button class="btn btn-sm btn-outline-danger" @click="clickRemoveComrade(comrade.id)">Remove comrade</button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="requests-list mt-4" v-if="me.inboundComradeRequests.length > 0 || me.outboundComradeRequests.length > 0">
+        <h5 class="text-muted">Comrade requests</h5>
+        <table class="table table-striped">
+          <thead>
+          <th>Name</th>
+          <th class="d-none d-md-table-cell">Email</th>
+          <th class="actions-column"></th>
+          </thead>
+          <tbody>
+          <tr v-for="potentialComrade in me.inboundComradeRequests">
+            <td><strong>{{potentialComrade.fullName}}</strong></td>
+            <td class="d-none d-md-table-cell">{{potentialComrade.emailAddress}}</td>
+            <td class="actions-column">
+              <button :disabled="syncing" class="btn btn-sm btn-outline-primary" @click="clickApproveComrade(potentialComrade.id)">Confirm</button>
+            </td>
+          </tr>
+          <tr v-for="potentialComrade in me.outboundComradeRequests" class="pending">
+            <td><strong>{{potentialComrade.fullName}}</strong></td>
+            <td class="d-none d-md-table-cell">{{potentialComrade.emailAddress}}</td>
+            <td class="actions-column">
+              <span class="badge badge-secondary">Pending approval</span>
+            </td>
+          </tr>
+          </tbody>
+        </table>
       </div>
     </div>
-    <div class="comrades-list" v-if="me.comrades.length > 0">
-      <h5 class="text-muted">My comrades</h5>
-      <table class="table table-striped">
-        <thead>
-        <th>Name</th>
-        <th class="d-none d-md-table-cell">Email</th>
-        <th class="actions-column"></th>
-        </thead>
-        <tbody>
-        <tr v-for="comrade in me.comrades">
-          <td><strong>{{comrade.fullName}}</strong></td>
-          <td class="d-none d-md-table-cell">{{comrade.emailAddress}}</td>
-          <td class="actions-column">
-            <button class="btn btn-sm btn-outline-danger" @click="clickRemoveComrade(comrade.id)">Remove comrade</button>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="requests-list mt-4" v-if="me.inboundComradeRequests.length > 0 || me.outboundComradeRequests.length > 0">
-      <h5 class="text-muted">Comrade requests</h5>
-      <table class="table table-striped">
-        <thead>
-        <th>Name</th>
-        <th class="d-none d-md-table-cell">Email</th>
-        <th class="actions-column"></th>
-        </thead>
-        <tbody>
-        <tr v-for="potentialComrade in me.inboundComradeRequests">
-          <td><strong>{{potentialComrade.fullName}}</strong></td>
-          <td class="d-none d-md-table-cell">{{potentialComrade.emailAddress}}</td>
-          <td class="actions-column">
-            <button :disabled="syncing" class="btn btn-sm btn-outline-primary" @click="clickApproveComrade(potentialComrade.id)">Confirm</button>
-          </td>
-        </tr>
-        <tr v-for="potentialComrade in me.outboundComradeRequests" class="pending">
-          <td><strong>{{potentialComrade.fullName}}</strong></td>
-          <td class="d-none d-md-table-cell">{{potentialComrade.emailAddress}}</td>
-          <td class="actions-column">
-            <span class="badge badge-secondary">Pending approval</span>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
+    <div class="row mb-4">
     <div class="empty text-center" v-if="me.inboundComradeRequests.length === 0 && me.outboundComradeRequests.length === 0 && me.comrades.length === 0"><p>You don't have any comrades on CONFED! In order to organise, you'll need to <a href="/comrades/new" @click="clickAddButton()">invite people</a> to join or add you as a comrade.</p></div>
+    </div>
   </div>
   <% /* "Add comrades" modal */ %>
   <modal v-if="virtualPageSlug === 'new'" v-cloak key="new" @close="closeAddComradesModal()">
