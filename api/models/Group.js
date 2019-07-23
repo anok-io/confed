@@ -33,6 +33,11 @@ module.exports = {
       defaultsTo: true,
     },
 
+    slug: {
+      type: 'slug',
+      from: 'name',
+    },
+
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
     //  ╚═╝╩ ╩╚═╝╚═╝═╩╝╚═╝
@@ -63,6 +68,5 @@ module.exports = {
     },
 
   },
-
 
 };

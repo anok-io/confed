@@ -5,31 +5,9 @@
 
     <div class="row mb-4">
       <div class="col">
-        <div class="btn-list">
-          <button class="btn btn-sm btn-outline-info create-group-button"
-                  v-if="!group.id"
-                  @click="clickCreateGroup()">
-            <i class="fe fe-plus mr-1"></i>Create Group
-          </button>
-          <button class="btn btn-sm btn-outline-info agenda-item-button"
-                  v-if="group.id"
-                  @click="clickCreateMeeting()">
-            <i class="fe fe-calendar mr-1"></i>Create Meeting
-          </button>
-          <button class="btn btn-sm btn-outline-info delete-group-button"
-                  v-if="group.id"
-                  @click="clickDeleteGroup(group.id)">
-            <i class="fe fe-x mr-1"></i>Delete my Group
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="row mb-4">
-      <div class="col">
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">{{group.name}} Comrades</h3>
+            <h3 class="card-title">Comrades</h3>
           </div>
           <div class="card-body o-auto" style="height: 25rem">
             <ul class="list-unstyled list-separated">
@@ -50,10 +28,10 @@
                           class="fe fe-more-vertical"></i></a>
                       <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end"
                            style="position: absolute; transform: translate3d(15px, 20px, 0px); top: 0px; left: 0px; will-change: transform;">
+                        <a :href="'/'+comrade.username" class="dropdown-item"><i class="dropdown-icon fe fe-eye"></i>
+                          View </a>
                         <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-message-square"></i>
                           Message </a>
-                        <a href="'/'+comrade.username" class="dropdown-item"><i class="dropdown-icon fe fe-fe-link"></i>
-                          View </a>
                       </div>
                     </div>
                   </div>
@@ -67,7 +45,23 @@
       <div class="col">
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">Groups in your Local</h3>
+            <h3 class="card-title">Local Groups</h3>
+            <div class="card-options">
+		          <button class="btn btn-sm btn-outline-info create-group-button"
+		                  v-if="!group.id"
+		                  @click="clickCreateGroup()">
+		            <i class="fe fe-plus mr-1"></i>Create Group
+		          </button>
+		          <button class="btn btn-sm btn-outline-info delete-group-button"
+		                  v-if="group.members && group.members.length === 1"
+		                  @click="clickDeleteGroup(group.id)">
+		            <i class="fe fe-x mr-1"></i>Delete my Group
+		          </button>
+		          <button class="btn btn-sm btn-outline-info delete-group-button"
+		                  v-if="group.members && group.members.length > 1">
+		            <i class="fe fe-flag mr-1"></i>Invite Group
+		          </button>
+            </div>
           </div>
           <div class="card-body o-auto" style="height: 25rem">
             <ul v-if="local && local.groups" class="list-unstyled list-separated">
@@ -79,7 +73,7 @@
                   </div>
                   <div class="col">
                     <div>
-                      <a href="javascript:void(0)" class="text-inherit">{{group.name}}</a>
+                      <a :href="'/org/'+group.slug" class="text-inherit">{{group.name}}</a>
                     </div>
                     <small class="d-block item-except text-sm text-muted h-1x">{{group.emailAddress}}</small>
                   </div>
@@ -89,10 +83,8 @@
                           class="fe fe-more-vertical"></i></a>
                       <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end"
                            style="position: absolute; transform: translate3d(15px, 20px, 0px); top: 0px; left: 0px; will-change: transform;">
-                        <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-eye"></i> View
-                        </a>
-                        <a href="javascript:void(0)" class="dropdown-item"><i
-                            class="dropdown-icon fe fe-message-square"></i> Message</a>
+                        <a :href="'/org/'+group.slug" class="dropdown-item"><i class="dropdown-icon fe fe-eye"></i> View</a>
+                        <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-message-square"></i> Message</a>
                         <div class="dropdown-divider"></div>
                         <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-database"></i>Meeting Archives</a>
                       </div>
@@ -108,7 +100,14 @@
       <div class="col">
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">{{group.name}} Meetings</h3>
+            <h3 class="card-title">Meetings</h3>
+            <div class="card-options">
+		          <button class="btn btn-sm btn-outline-info agenda-item-button"
+		                  v-if="group.id"
+		                  @click="clickCreateMeeting()">
+		            <i class="fe fe-calendar mr-1"></i>Create Meeting
+		          </button>
+            </div>
           </div>
           <div class="card-body o-auto" style="height: 25rem">
             <ul v-if="meetings.length > 0" class="list-unstyled list-separated">
@@ -151,7 +150,53 @@
       </div>
 
     </div>
+
+    <div class="row mb-4">
+
+      <div class="col">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Regional Groups</h3>
+          </div>
+          <div class="card-body o-auto" style="height: 25rem">
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Federation</h3>
+            <div class="card-options">
+
+            </div>
+          </div>
+          <div class="card-body o-auto" style="height: 25rem">
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Confederation</h3>
+            <div class="card-options">
+
+            </div>
+          </div>
+          <div class="card-body o-auto" style="height: 25rem">
+
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
+
+
+
 
   <%- /* "Create Group" Modal */ %>
   <modal v-if="virtualPageSlug === 'new'" v-cloak key="new" v-cloak @close="closeCreateGroupModal()">
@@ -217,7 +262,7 @@
                :syncing.sync="syncing"
                :cloud-error.sync="cloudError"
                :handle-parsing="handleParsingCreateMeetingForm"
-               @submitted="submittedCreateMeetingForm()">
+               @submitted="submittedCreateMeetingForm($event)">
       <div class="modal-body">
         <p>Create a meeting below.</p>
         <p>For meetings to be called for an assembly of groups, your existing membership must vote for it.</p>
@@ -233,29 +278,33 @@
           <small>Please check that you have selected an assembly.</small>
         </p>
       </div>
-      <div class="form-group">
-        <label class="form-label">Date</label>
-        <div class="input-icon">
-          <span class="input-icon-addon">
-            <i class="fe fe-calendar"></i>
-          </span>
-          <datepicker v-model="createMeetingformData.date" :displayininternationalformat="true" :placeholder="'YYYY-MM-DD'"></datepicker>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="assembly">Assembly this meeting is for. Normally this will be for your group.</label>
-        <div>
-          <select id="assembly" v-model="createMeetingformData.assembly" name="assembly" class="form-control">
-            <option value="group" selected>Group</option>
-            <option value="local">Local</option>
-            <option value="regional">Regional</option>
-            <option value="federation">Federation</option>
-            <option value="confederation">Confederation</option>
-          </select>
-        </div>
-      </div>
-
+	    <div class="row">
+	    	<div class="col">
+		      <div class="form-group">
+		        <label class="form-label">Date</label>
+		        <div class="input-icon">
+		          <span class="input-icon-addon">
+		            <i class="fe fe-calendar"></i>
+		          </span>
+		          <datepicker v-model="createMeetingformData.date" :displayininternationalformat="true" :placeholder="'YYYY-MM-DD'"></datepicker>
+		        </div>
+		      </div>
+		    </div>
+		    <div class="col">
+		      <div class="form-group">
+		        <label for="assembly" class="form-label">Assembly</label>
+		        <div>
+		          <select id="assembly" v-model="createMeetingformData.assembly" name="assembly" class="form-control">
+		            <option value="group" selected>Group</option>
+		            <option value="local">Local</option>
+		            <option value="regional">Regional</option>
+		            <option value="federation">Federation</option>
+		            <option value="confederation">Confederation</option>
+		          </select>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
       <div class="modal-footer">
         <button data-dismiss="modal" class="btn btn-outline-secondary mr-1">Nevermind</button>
         <ajax-button type="submit" :syncing="syncing" class="btn btn-danger ml-1">Create</ajax-button>

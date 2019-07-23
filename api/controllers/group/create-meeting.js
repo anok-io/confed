@@ -35,7 +35,7 @@ module.exports = {
   },
 
 
-  fn: async function (inputs) {
+  fn: async function (inputs, exits) {
     sails.log('Controller create-meeting called.');
     // ensure this is input in unix time
     var date = sails.moment(inputs.date).valueOf();
@@ -50,9 +50,12 @@ module.exports = {
     await Meeting.update(newMeeting.id, {
       'creator' : this.req.me.id,
     });
-    return {
-      id: newMeeting.id
-    };
+    return exits.success({
+      id: newMeeting.id,
+      date: newMeeting.date,
+      assembly: newMeeting.assembly,
+      createdAt: newMeeting.createdAt
+    });
   }
 
 

@@ -102,7 +102,6 @@ parasails.registerPage('group', {
     },
 
     submittedCreateGroupForm: function (data) {
-      console.log(data);
       this.group = data.group;
       this.$forceUpdate();
       this.closeCreateGroupModal();
@@ -149,7 +148,8 @@ parasails.registerPage('group', {
       return argins;
     },
 
-    submittedCreateMeetingForm: function () {
+    submittedCreateMeetingForm: function (data) {
+      this.meetings.unshift(data);
       this.closeCreateMeetingModal();
     },
 
@@ -202,6 +202,7 @@ parasails.registerPage('group', {
       this.selectedGroup = undefined;
       this.group = {};
       this.$forceUpdate();
-    }
+    },
+
   }
 });

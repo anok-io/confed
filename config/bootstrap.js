@@ -18,7 +18,7 @@ module.exports.bootstrap = async function() {
   sails.moment = require('moment');
 
   // This bootstrap version indicates what version of fake data we're dealing with here.
-  var HARD_CODED_DATA_VERSION = 7;
+  var HARD_CODED_DATA_VERSION = 9;
 
   // This path indicates where to store/look for the JSON file that tracks the "last run bootstrap info"
   // locally on this development computer (if we happen to be on a development computer).
