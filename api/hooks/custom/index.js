@@ -166,7 +166,7 @@ will be disabled and/or hidden in the UI.
             var loggedInUser = await User.findOne({
               id: req.session.userId
             })
-              .populate('comrades')
+              .populate('comrades', { select: ['fullName', 'lastSeenAt', 'username', 'createdAt'] })
               .populate('inboundComradeRequests')
               .populate('outboundComradeRequests');
 
