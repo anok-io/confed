@@ -16,6 +16,10 @@ module.exports = {
 
   exits: {
 
+    notFound: {
+      responseType: 'notFound'
+    },
+
   },
 
 

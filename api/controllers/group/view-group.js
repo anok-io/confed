@@ -19,7 +19,9 @@ module.exports = {
   fn: async function () {
     var group = await Group.findOne({
       id: this.req.me.group
-    }).populate('members');
+    }).populate('members', {
+      select: ['fullName', 'lastSeenAt', 'username']
+    });
 
     // the ID of the local
     if (group && group.local) {
