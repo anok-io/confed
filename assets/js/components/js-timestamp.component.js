@@ -20,7 +20,7 @@ parasails.registerComponent('jsTimestamp', {
   props: [
     'at',// « The JS timestamp to format
     'short',// « Whether to shorten the formatted date by not including the time of day (may only be used with timeago, and even then only applicable in certain situations)
-    'format',// « one of: 'calendar', 'timeago' (defaults to 'timeago'.  Otherwise, the "calendar" format displays data as US-style calendar dates with a four-character year, separated by dashes.  In other words: "MM-DD-YYYY")
+    'format',// « one of: 'international', 'calendar', 'timeago' (defaults to 'timeago'.  Otherwise, the international displays as YYYY-MM-DD and "calendar" format displays data as US-style calendar dates with a four-character year, separated by dashes.  In other words: "MM-DD-YYYY")
   ],
 
   //  ╦╔╗╔╦╔╦╗╦╔═╗╦    ╔═╗╔╦╗╔═╗╔╦╗╔═╗
@@ -51,7 +51,7 @@ parasails.registerComponent('jsTimestamp', {
     if(this.format === undefined) {
       this.formatType = 'timeago';
     } else  {
-      if(!_.contains(['calendar', 'timeago'], this.format)) { throw new Error('Unsupported `format` ('+this.format+') passed in to the JS timestamp component! Must be either \'calendar\' or \'timeago\'.'); }
+      if(!_.contains(['international', 'calendar', 'timeago'], this.format)) { throw new Error('Unsupported `format` ('+this.format+') passed in to the JS timestamp component! Must be either \'international\', \'calendar\' or \'timeago\'.'); }
       this.formatType = this.format;
     }
 
@@ -75,6 +75,15 @@ parasails.registerComponent('jsTimestamp', {
       this.formattedTimestamp = moment(this.at).format('MM-DD-YYYY');
       if (this.short) {
         throw new Error('Invalid usage of <js-timestamp>:  Cannot use `short="true"` at the same time as `format="calendar"`.');
+      }
+    }
+
+    // If international timestamp, just set it the once as well.
+    // (Also don't allow usage with `short`.)
+    if(this.formatType === 'international') {
+      this.formattedTimestamp = moment(this.at).format('YYYY-MM-DD');
+      if (this.short) {
+        throw new Error('Invalid usage of <js-timestamp>:  Cannot use `short="true"` at the same time as `format="international"`.');
       }
     }
   },
