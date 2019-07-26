@@ -33,6 +33,8 @@ module.exports.routes = {
   'GET /account/password':              { action: 'account/view-edit-password' },
   'GET /account/profile':               { action: 'account/view-edit-profile' },
 
+  'GET /dashboard':                     { action: 'dashboard/view-dashboard' },
+  'GET /dashboard/:virtualPageSlug?':       { action: 'dashboard/view-dashboard' },
 
   'GET /group':                         { action: 'group/view-group' },
   'GET /group/:virtualPageSlug?':       { action: 'group/view-group' },
@@ -84,7 +86,7 @@ module.exports.routes = {
   'DELETE  /api/v1/comrades/:id':                         { action: 'comrades/remove-comrade' },
   'POST    /api/v1/comrades':                             { action: 'comrades/add-comrades' },
   'PUT     /api/v1/approve-comrade':                      { action: 'comrades/approve-comrade' },
-  
+
   //  ╔═╗╔═╗╔╗╔╔═╗╔═╗╔╦╗  ╔═╗╦ ╦╔═╗╔╦╗╔═╗╔╦╗
   //  ║  ║ ║║║║╠╣ ║╣  ║║  ║  ║ ║╚═╗ ║ ║ ║║║║
   //  ╚═╝╚═╝╝╚╝╚  ╚═╝═╩╝  ╚═╝╚═╝╚═╝ ╩ ╚═╝╩ ╩

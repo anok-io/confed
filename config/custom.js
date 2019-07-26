@@ -59,7 +59,7 @@ module.exports.custom = {
   //--------------------------------------------------------------------------
 
   // The sender that all outgoing emails will appear to come from.
-  fromEmailAddress: 'noreply@example.com',
+  fromEmailAddress: 'noreply@confed.io',
   fromName: 'The Confed Team',
 
   // Email address for receiving support messages & other correspondences.

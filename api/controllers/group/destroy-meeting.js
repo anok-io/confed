@@ -23,9 +23,9 @@ module.exports = {
   },
 
 
-  fn: async function (inputs) {
+  fn: async function ({id}) {
     var meeting = await Meeting.findOne({
-      id: inputs.id
+      id: id
     }).populate('creator')
       .populate('agenda');
 
@@ -33,8 +33,7 @@ module.exports = {
       throw 'forbidden';
     }
 
-    await Meeting.destroy({id:inputs.id});
-    return {};
+    await Meeting.destroy({id});
   }
 
 

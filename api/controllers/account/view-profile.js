@@ -23,7 +23,8 @@ module.exports = {
 
   fn: async function (inputs) {
     var user = await User.findOne({
-      username: inputs.username
+      where: { username: inputs.username },
+      select: ['fullName', 'username']
     });
     return {user};
 

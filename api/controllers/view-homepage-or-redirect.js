@@ -17,7 +17,7 @@ module.exports = {
 
     redirect: {
       responseType: 'redirect',
-      description: 'Requesting user is logged in, so redirect to the internal welcome page.'
+      description: 'Requesting user is logged in, so redirect to the internal dashboard page.'
     },
 
   },
@@ -26,7 +26,7 @@ module.exports = {
   fn: async function () {
 
     if (this.req.me) {
-      throw {redirect:'/group'};
+      throw {redirect:'/dashboard'};
     }
 
     return {};
