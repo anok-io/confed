@@ -24,9 +24,12 @@ module.exports = {
   fn: async function (inputs) {
     var user = await User.findOne({
       where: { username: inputs.username },
-      select: ['fullName', 'username']
-    });
-    return {user};
+      select: ['fullName', 'username', 'group']
+    }).populate('group');
+    return {
+      user: user,
+      group: user.group
+    };
 
   }
 

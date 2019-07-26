@@ -37,7 +37,6 @@ module.exports.routes = {
   'GET /dashboard/:virtualPageSlug?':       { action: 'dashboard/view-dashboard' },
 
   'GET /group':                         { action: 'group/view-group' },
-  'GET /group/:virtualPageSlug?':       { action: 'group/view-group' },
 
   'GET /comrades/:virtualPageSlug?':    { action: 'comrades/view-comrades' },
 
@@ -93,6 +92,7 @@ module.exports.routes = {
   //
   // Required to be at the bottom to not overwrite other routes
 
+  'GET /group/:groupname':       { action: 'group/view-group' },
   'GET /:username':                  { action: 'account/view-profile', skipAssets: true },
 
 };

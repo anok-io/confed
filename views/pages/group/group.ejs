@@ -1,11 +1,36 @@
 <div id="group" v-cloak>
   <div class="container">
-
-    <h1><a href="/group">{{ group.name || 'Group'}}</a></h1>
-
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card card-profile">
+          <div class="card-header" style="background-image: url(https://placeimg.com/500/333/any);"></div>
+          <div class="card-body text-center">
+            <img class="card-profile-img" src="/images/hero-ship.png">
+            <h3 class="mb-3">{{group.name}}</h3>
+            <p class="mb-4">
+              {{group.emailAddress}}
+            </p>
+            <ul class="social-links list-inline mb-0 mt-2">
+              <li class="list-inline-item">
+                <a href="javascript:void(0)" title="" data-toggle="tooltip" data-original-title="Facebook"><i class="fa fa-facebook"></i></a>
+              </li>
+              <li class="list-inline-item">
+                <a href="javascript:void(0)" title="" data-toggle="tooltip" data-original-title="Twitter"><i class="fa fa-twitter"></i></a>
+              </li>
+              <li class="list-inline-item">
+                <a href="javascript:void(0)" title="" data-toggle="tooltip" data-original-title="1234567890"><i class="fa fa-phone"></i></a>
+              </li>
+              <li class="list-inline-item">
+                <a href="javascript:void(0)" title="" data-toggle="tooltip" data-original-title="@skypename"><i class="fa fa-skype"></i></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <router-view></router-view>
+
 </div>
-
-
 <%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>

@@ -9,7 +9,7 @@
             <img class="card-profile-img" :src="'/api/v1/user/'+user.id+'/avatar'">
             <h3 class="mb-3">{{user.fullName}}</h3>
             <p class="mb-4">
-              Anarcho Syndicalist Militant.
+              {{user.group.name}}
             </p>
             <ul class="social-links list-inline mb-0 mt-2">
               <li class="list-inline-item">

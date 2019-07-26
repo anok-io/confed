@@ -6,6 +6,11 @@ module.exports = {
 
   description: 'Display "Group" page.',
 
+  inputs: {
+    groupname: {
+      type: 'string'
+    }
+  },
 
   exits: {
 
@@ -16,7 +21,20 @@ module.exports = {
   },
 
 
-  fn: async function () {
+  fn: async function (inputs) {
+    var group = await Group.findOne({
+      where: { slug: inputs.groupname },
+      select: ['name', 'emailAddress', 'initiative', 'slug', 'local', 'regional', 'federation', 'confederation']
+    })
+      .populate('members', {
+        select: ['username']
+      })
+      .populate('local')
+      .populate('regional')
+      .populate('federation')
+      .populate('confederation');
+    return {group};
 
   }
+
 };
