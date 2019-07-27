@@ -85,7 +85,7 @@ the account verification message.)`,
       emailAddress: newEmailAddress,
       password: await sails.helpers.passwords.hashPassword(inputs.password),
       fullName: inputs.fullName,
-      username: await sails.helpers.slugify(inputs.fullName),
+      username: await sails.helpers.slugify(inputs.username),
       tosAcceptedByIp: this.req.ip,
     }, sails.config.custom.verifyEmailAddresses? {
       emailProofToken: await sails.helpers.strings.random('url-friendly'),
