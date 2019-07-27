@@ -16,8 +16,6 @@ If a verification email is sent, the new user's account is put in an "unconfirme
 until they confirm they are using a legitimate email address (by clicking the link in
 the account verification message.)`,
 
-  files: ['avatar'],
-
   inputs: {
 
     emailAddress: {
@@ -43,11 +41,12 @@ the account verification message.)`,
       description: 'The user\'s full name.',
     },
 
-    avatar: {
-      type: 'ref',
-      required: false
-  }
-
+    username:  {
+      required: true,
+      type: 'string',
+      example: 'frida-kahlo-de-rivera',
+      description: 'The username that is url friendly.',
+    },
   },
 
 
@@ -59,14 +58,19 @@ the account verification message.)`,
 
     invalid: {
       responseType: 'badRequest',
-      description: 'The provided fullName, password and/or email address are invalid.',
+      description: 'The provided username, fullName, password and/or email address are invalid.',
       extendedDescription: 'If this request was sent from a graphical user interface, the request '+
       'parameters should have been validated/coerced _before_ they were sent.'
     },
 
     emailAlreadyInUse: {
       statusCode: 409,
-      description: 'The provided email address is already in use.',
+      description: 'The provided email address or username is already in use.',
+    },
+
+    usernameAlreadyInUse: {
+      statusCode: 409,
+      description: 'The provided username is already in use.', // not sure how to intercept this E_UNIQUE
     },
 
   },
@@ -81,6 +85,7 @@ the account verification message.)`,
       emailAddress: newEmailAddress,
       password: await sails.helpers.passwords.hashPassword(inputs.password),
       fullName: inputs.fullName,
+      username: await sails.helpers.slugify(inputs.fullName),
       tosAcceptedByIp: this.req.ip,
     }, sails.config.custom.verifyEmailAddresses? {
       emailProofToken: await sails.helpers.strings.random('url-friendly'),
@@ -91,7 +96,7 @@ the account verification message.)`,
     .intercept({name: 'UsageError'}, 'invalid')
     .fetch();
 
-    // If billing feaures are enabled, save a new customer entry in the Stripe API.
+    // If billing features are enabled, save a new customer entry in the Stripe API.
     // Then persist the Stripe customer id in the database.
     if (sails.config.custom.enableBillingFeatures) {
       let stripeCustomerId = await sails.helpers.stripe.saveBillingInfo.with({
