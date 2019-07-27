@@ -80,11 +80,12 @@ module.exports = {
       }
     }
 
-    var newUsername = await sails.helpers.slugify(inputs.username);
+    var newUserName = inputs.username;
+    newUserName = await sails.helpers.slugify(newUserName);
 
     // check that the username is not already in use
     let conflictingUserName = await User.findOne({
-      username: newUsername
+      username: newUserName
     });
     if (conflictingUserName) {
       throw 'usernameAlreadyInUse';
@@ -98,7 +99,7 @@ module.exports = {
     };
 
     _.extend(valuesToSet, {
-      username: newUsername
+      username: newUserName
     });
 
 

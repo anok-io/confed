@@ -7,7 +7,7 @@
         <div class="col-sm-6">
           <div class="form-group">
             <label for="username">Username</label>
-            <input class="form-control" id="username" name="username" type="text"  :class="[formErrors.username ? 'is-invalid' : '']" placeholder="More than 4 characters. Added after the domain URL." autocomplete="username">
+            <input class="form-control" id="username" name="username" type="text"  :class="[formErrors.username ? 'is-invalid' : '']" v-model.trim="formData.username"  placeholder="<% me.username %>" autocomplete="username">
             <small id="usernameHelp" class="form-text text-muted">Currently: <a href="<%= req.baseUrl+'/'+me.username %>"><%= req.baseUrl+'/'+me.username %></a></small>
             <div class="invalid-feedback" v-if="formErrors.username">Your username creates your profile URL. It must be unique.</div>
           </div>
