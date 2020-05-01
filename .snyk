@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.14.0
+version: v1.14.1
 ignore: {}
 # patches apply the minimum changes required to fix a vulnerability
 patch:
@@ -17,3 +17,78 @@ patch:
   SNYK-JS-TREEKILL-536781:
     - snyk > snyk-sbt-plugin > tree-kill:
         patched: '2019-12-12T06:46:23.762Z'
+  SNYK-JS-LODASH-567746:
+    - snyk > lodash:
+        patched: '2020-05-01T06:46:55.102Z'
+    - sails > async > lodash:
+        patched: '2020-05-01T06:46:55.102Z'
+    - sails-hook-organics > async > lodash:
+        patched: '2020-05-01T06:46:55.102Z'
+    - sails-hook-orm > async > lodash:
+        patched: '2020-05-01T06:46:55.102Z'
+    - sails-hook-sockets > async > lodash:
+        patched: '2020-05-01T06:46:55.102Z'
+    - sails-postgresql > async > lodash:
+        patched: '2020-05-01T06:46:55.102Z'
+    - sails-hook-kue-based-jobs > kue > lodash:
+        patched: '2020-05-01T06:46:55.102Z'
+    - snyk > @snyk/dep-graph > lodash:
+        patched: '2020-05-01T06:46:55.102Z'
+    - snyk > inquirer > lodash:
+        patched: '2020-05-01T06:46:55.102Z'
+    - snyk > snyk-config > lodash:
+        patched: '2020-05-01T06:46:55.102Z'
+    - snyk > snyk-mvn-plugin > lodash:
+        patched: '2020-05-01T06:46:55.102Z'
+    - snyk > snyk-nodejs-lockfile-parser > lodash:
+        patched: '2020-05-01T06:46:55.102Z'
+    - snyk > snyk-nuget-plugin > lodash:
+        patched: '2020-05-01T06:46:55.102Z'
+    - sails > machinepack-redis > async > lodash:
+        patched: '2020-05-01T06:46:55.102Z'
+    - sails-hook-sockets > machinepack-redis > async > lodash:
+        patched: '2020-05-01T06:46:55.102Z'
+    - sails > sails-generate > async > lodash:
+        patched: '2020-05-01T06:46:55.102Z'
+    - sails > skipper > async > lodash:
+        patched: '2020-05-01T06:46:55.102Z'
+    - sails-hook-orm > sails-disk > async > lodash:
+        patched: '2020-05-01T06:46:55.102Z'
+    - sails-hook-orm > waterline-utils > async > lodash:
+        patched: '2020-05-01T06:46:55.102Z'
+    - sails-postgresql > waterline-utils > async > lodash:
+        patched: '2020-05-01T06:46:55.102Z'
+    - sails-hook-orm > waterline > async > lodash:
+        patched: '2020-05-01T06:46:55.102Z'
+    - sails-hook-orm > waterline > encrypted-attr > lodash:
+        patched: '2020-05-01T06:46:55.102Z'
+    - snyk > @snyk/dep-graph > graphlib > lodash:
+        patched: '2020-05-01T06:46:55.102Z'
+    - snyk > snyk-go-plugin > graphlib > lodash:
+        patched: '2020-05-01T06:46:55.102Z'
+    - snyk > snyk-nodejs-lockfile-parser > graphlib > lodash:
+        patched: '2020-05-01T06:46:55.102Z'
+    - snyk > @snyk/snyk-cocoapods-plugin > @snyk/dep-graph > lodash:
+        patched: '2020-05-01T06:46:55.102Z'
+    - snyk > snyk-nuget-plugin > dotnet-deps-parser > lodash:
+        patched: '2020-05-01T06:46:55.102Z'
+    - snyk > snyk-php-plugin > @snyk/composer-lockfile-parser > lodash:
+        patched: '2020-05-01T06:46:55.102Z'
+    - sails-hook-orm > waterline > waterline-utils > async > lodash:
+        patched: '2020-05-01T06:46:55.102Z'
+    - sails-postgresql > machinepack-postgresql > waterline-sql-builder > knex > lodash:
+        patched: '2020-05-01T06:46:55.102Z'
+    - snyk > @snyk/snyk-cocoapods-plugin > @snyk/dep-graph > graphlib > lodash:
+        patched: '2020-05-01T06:46:55.102Z'
+    - snyk > @snyk/snyk-cocoapods-plugin > @snyk/cocoapods-lockfile-parser > @snyk/ruby-semver > lodash:
+        patched: '2020-05-01T06:46:55.102Z'
+    - sails-postgresql > machinepack-postgresql > waterline-sql-builder > waterline-utils > async > lodash:
+        patched: '2020-05-01T06:46:55.102Z'
+    - snyk > @snyk/snyk-cocoapods-plugin > @snyk/cocoapods-lockfile-parser > @snyk/dep-graph > graphlib > lodash:
+        patched: '2020-05-01T06:46:55.102Z'
+    - sails-hook-kue-based-jobs > kue > pug > pug-code-gen > constantinople > babel-types > lodash:
+        patched: '2020-05-01T06:46:55.102Z'
+    - sails-hook-kue-based-jobs > kue > pug > pug-filters > constantinople > babel-types > lodash:
+        patched: '2020-05-01T06:46:55.102Z'
+    - sails-hook-kue-based-jobs > kue > pug > pug-code-gen > pug-attrs > constantinople > babel-types > lodash:
+        patched: '2020-05-01T06:46:55.102Z'
