@@ -18,7 +18,7 @@
     "sails-hook-slugs": "^2.1.0",
     "sails-hook-sockets": "^2.0.1",
     "sails-hook-uploads": "^0.4.3",
-    "sails-postgresql": "^1.0.2",
+    "sails-postgresql": "^5.0.0",
     "skipper-s3": "^0.6.0",
     "snyk": "^1.685.0"
   },
