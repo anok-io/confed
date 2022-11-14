@@ -20,7 +20,7 @@
     "sails-hook-uploads": "^0.4.3",
     "sails-postgresql": "^5.0.0",
     "skipper-s3": "^0.6.0",
-    "snyk": "^1.685.0"
+    "snyk": "^1.996.0"
   },
   "devDependencies": {
     "eslint": "5.16.0",
