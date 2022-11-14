@@ -9,7 +9,7 @@
     "@sailshq/lodash": "^3.10.4",
     "@sailshq/socket.io-redis": "^5.2.0",
     "connect-redis": "^4.0.0",
-    "moment": "^2.29.2",
+    "moment": "^2.29.4",
     "sails": "^1.2.4",
     "sails-hook-apianalytics": "^2.0.3",
     "sails-hook-kue-based-jobs": "^1.0.5",
@@ -26,7 +26,7 @@
     "eslint": "5.16.0",
     "htmlhint": "0.11.0",
     "lesshint": "6.3.6",
-    "grunt": "1.5.2",
+    "grunt": "1.5.3",
     "sails-hook-grunt": "^4.0.0"
   },
   "scripts": {
