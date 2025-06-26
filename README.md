@@ -1,5 +1,7 @@
 # CONFED Ⓐ
 
+## ARCHIVED: Currently CONFED is being rewritten
+
 CONFED is a [Sails v1](https://sailsjs.com) application aimed to provide an organising platform for groups based on anarcho syndicalist principles of organising.
 
 **CONFED is very much in active development and there is a lot to be done to get the basics started. I very much value contributions and hope to kick start something. Please start a discussion on discourse.anok.io or just drop in for a chat on Gitter**
