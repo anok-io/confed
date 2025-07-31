@@ -14,7 +14,7 @@
     "sails-hook-apianalytics": "^2.0.3",
     "sails-hook-kue-based-jobs": "^1.0.5",
     "sails-hook-organics": "^0.16.0",
-    "sails-hook-orm": "^2.1.1",
+    "sails-hook-orm": "^4.0.1",
     "sails-hook-slugs": "^2.1.0",
     "sails-hook-sockets": "^3.0.0",
     "sails-hook-uploads": "^0.4.3",
